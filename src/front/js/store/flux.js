@@ -13,7 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			companies: [],
+			apiUrl: `${process.env.BACKEND_URL}/api`
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -46,7 +48,104 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			//////////////////////////////////////////////////////////////////////////////
+			getCompanies: async () => {
+				const store = getStore()
+				try { 
+					const response = await fetch(`${store.apiUrl}/company`)
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						setStore({companies: data})
+						return true
+					}
+					console.log(data)
+					setStore({companies: false})
+					return false
+				} catch (error) { 
+					console.log(error)
+					setStore({companies: false})
+					return false
+					
+				}
+			},
+			addCompany: async (company) => {
+				const store = getStore()
+				const actions = getActions()
+				try { 
+					const response = await fetch(`${store.apiUrl}/company`, {
+						method: 'POST',
+						body: JSON.stringify(company),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getCompanies()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			editCompany: async (company,id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/company/${id}`, {
+						method: 'PUT',
+						body: JSON.stringify(company),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getCompanies()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			deleteCompany: async (id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/company/${id}`, { method: 'DELETE'})
+					console.log(response)
+					const data = await response
+					if(response.ok){
+						console.log(data)
+						actions.getCompanies()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+
 		}
 	};
 };
