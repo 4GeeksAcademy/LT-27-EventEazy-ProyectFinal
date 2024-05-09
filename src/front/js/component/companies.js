@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import { Context } from "../store/appContext";
 import rigoImage from "../../img/rigo-baby.jpg";
+import "../../styles/companies.css";
 
 
 const Companies = () => {
@@ -18,11 +19,11 @@ const Companies = () => {
             <div className="container-fluid m-3 p-3 ">
                 <div className=" ">
                     <h1 className="text-center text-secondary">Companies</h1>
-                    {store.Companies &&
+                    {store.companies &&
                         store.companies.length > 0 &&
                         store.companies.map((company) => {
                             return (
-                                <div className="card w-100  m-3 border border-3 rounded  p-2 text-dark bg-opacity-10" style={{ width: "540px" }}>
+                                <div key={company.id} className="card w-100  m-3 border border-3 rounded  p-2 text-dark bg-opacity-10" style={{ width: "540px" }}>
                                     <div className="row ">
                                         <div className="col-2 ">
                                             <img
@@ -33,11 +34,11 @@ const Companies = () => {
                                         </div>
                                         <div className="col-8">
                                             <div className="card-body">
-                                                <h5 className="card-title"><span class="border-bottom">{company.name}</span></h5>
-                                                <p className="card-text"><span class="border-bottom">{company.email}</span></p>
+                                                <h5 className="card-title"><span className="border-bottom">{company.name}</span></h5>
+                                                <p className="card-text"><span className="border-bottom">{company.email}</span></p>
                                                 <p className="card-text">
                                                     <small className="text-body-secondary">
-                                                        <span class="border-bottom">{company.password}</span>
+                                                        <span className="border-bottom">{company.password}</span>
                                                     </small>
                                                 </p>
                                             </div>
