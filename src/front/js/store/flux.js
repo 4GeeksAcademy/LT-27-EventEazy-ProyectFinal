@@ -52,18 +52,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//////////////////////////////////////////////////////////////////////////////
 			getCompanies: async () => {
 				const store = getStore()
+				fetch(`${store.apiUrl}/company`)
+				.then((response)=>response.json() )
+				.then((data)=>{console.log(data)
+					setStore({companies: data})
+				} )
+				
 				try { 
-					const response = await fetch(`${store.apiUrl}/company`)
-					console.log(response)
-					const data = await response.json()
-					if(response.ok){
-						console.log(data)
-						setStore({companies: data})
-						return true
-					}
-					console.log(data)
-					setStore({companies: false})
-					return false
+					// const response = await fetch(`${store.apiUrl}/company` , {
+					// 	method: 'GET',
+					// 	mode: "no-cors",
+					// 	headers: {
+					// 		'Content-Type': 'application/json',
+					// 		'Access-Control-Allow-Origin': '*'
+					// 	}
+					// })
+					// const data = await response.json()
+					// console.log(data, 'data')
+					// const response = await fetch(`${store.apiUrl}/company`)
+					// console.log(`${store.apiUrl}/company`,'url')
+					// console.log(response,'RESPUESTA API COMPANY')
+					
+					// console.log(data,'data API COMPANY')
+					// if(response.ok){
+					// 	const data = await response.json()
+					// 	console.log(data)
+					// 	setStore({companies: data})
+					// 	return true
+					// }
+					// // console.log(data)
+					// setStore({companies: false})
+					// return false
 				} catch (error) { 
 					console.log(error)
 					setStore({companies: false})
