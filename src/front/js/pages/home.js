@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
-import { CompanyForm } from "../component/companyForm";
-import Companies from "../component/companies";
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -23,8 +22,6 @@ export const Home = () => {
 					Read documentation
 				</a>
 			</p>
-			<Companies/>
-			
 		</div>
 	);
 };

@@ -17,7 +17,7 @@ export const CompanyForm = () => {
             response = await actions.editCompany(company, params.id);
         }
         if (response) {
-            navigate("/");
+            navigate("/companies");
         }
     }
 
