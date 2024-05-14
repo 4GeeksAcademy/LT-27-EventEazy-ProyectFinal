@@ -36,7 +36,7 @@ export const CompanyForm = () => {
         <>
             <nav className="navbar navbar-light m-5">
                 <div className="ml-auto">
-                    <Link to="/">
+                    <Link to="/companies">
                         <span className="navbar-brand mb-0 h1">Back to Companies</span>
                     </Link>
                 </div>
