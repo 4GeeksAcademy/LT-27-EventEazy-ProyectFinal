@@ -13,6 +13,8 @@ import { Footer } from "./component/footer";
 import { CompanyForm } from "./component/companyForm";
 import { Company } from "./pages/company";
 import { companies} from "./component/companies"
+import { ProductForm } from "./component/productForm";
+import { Product } from "./pages/product";
 
 //create your first component
 const Layout = () => {
@@ -35,6 +37,9 @@ const Layout = () => {
                         <Route element={<Company />} path="/companies" />
                         <Route element={<CompanyForm />} path="/add-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />
+                        <Route element={<Product />} path="/products" />
+                        <Route element={<ProductForm />} path="/add-product" />
+						<Route element={<ProductForm />} path="/edit-product/:id" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>

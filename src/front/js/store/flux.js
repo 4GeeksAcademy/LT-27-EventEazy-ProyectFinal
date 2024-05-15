@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			companies: [],
-			apiUrl: `${process.env.BACKEND_URL}/api`
+			apiUrl: `${process.env.BACKEND_URL}/api`,
+			products: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -49,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			//////////////////////////////////////////////////////////////////////////////
+			////////////////////////COMPANIES//////////////////////////////////////////////////////
 			getCompanies: async () => {
 				const store = getStore()
 				fetch(`${store.apiUrl}/company`)
@@ -154,6 +155,121 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if(response.ok){
 						console.log(data)
 						actions.getCompanies()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			/////////////////////PRODUCT///////////////////////////////////////////////////////////
+			getProducts: async () => {
+				const store = getStore()
+				fetch(`${store.apiUrl}/product`)
+				.then((response)=>response.json() )
+				.then((data)=>{console.log(data)
+					setStore({products: data})
+				} )
+				
+				try { 
+					// const response = await fetch(`${store.apiUrl}/company` , {
+					// 	method: 'GET',
+					// 	mode: "no-cors",
+					// 	headers: {
+					// 		'Content-Type': 'application/json',
+					// 		'Access-Control-Allow-Origin': '*'
+					// 	}
+					// })
+					// const data = await response.json()
+					// console.log(data, 'data')
+					// const response = await fetch(`${store.apiUrl}/company`)
+					// console.log(`${store.apiUrl}/company`,'url')
+					// console.log(response,'RESPUESTA API COMPANY')
+					
+					// console.log(data,'data API COMPANY')
+					// if(response.ok){
+					// 	const data = await response.json()
+					// 	console.log(data)
+					// 	setStore({companies: data})
+					// 	return true
+					// }
+					// // console.log(data)
+					// setStore({companies: false})
+					// return false
+				} catch (error) { 
+					console.log(error)
+					setStore({companies: false})
+					return false
+					
+				}
+			},
+			addProduct: async (product) => {
+				const store = getStore()
+				const actions = getActions()
+				try { 
+					const response = await fetch(`${store.apiUrl}/product`, {
+						method: 'POST',
+						body: JSON.stringify(product),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getProducts()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			editProduct: async (product,id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/product/${id}`, {
+						method: 'PUT',
+						body: JSON.stringify(product),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getProducts()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			deleteProduct: async (id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/product/${id}`, { method: 'DELETE'})
+					console.log(response)
+					const data = await response
+					if(response.ok){
+						console.log(data)
+						actions.getProducts()
 						return true
 					}
 					console.log(data)
