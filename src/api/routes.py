@@ -103,8 +103,8 @@ def add_product():
         description=body['description'],
         quantity=body['quantity'],
         price=body['price'],
-        category_id=body['category_id'],
-        company_id=body['company_id'],
+        # category_id=body['category_id'],
+        # company_id=body['company_id'],
     )
     db.session.add(new_product)
     db.session.commit()
@@ -136,8 +136,10 @@ def update_product(product_id):
         product.quantity = body['quantity']
     if 'price' in body:
         product.price = body['price']
-    if 'category_id' in body:
-        product.category_id = body['category_id']
+    # if 'category_id' in body:
+    #     product.category_id = body['category_id']
+    # if 'company_id' in body:
+    #     product.companany_id = body['company_id']
     
     db.session.commit()
  

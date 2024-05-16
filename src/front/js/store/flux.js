@@ -51,45 +51,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			////////////////////////COMPANIES//////////////////////////////////////////////////////
-			getCompanies: async () => {
+			getCompanies:  () => {
 				const store = getStore()
 				fetch(`${store.apiUrl}/company`)
 				.then((response)=>response.json() )
 				.then((data)=>{console.log(data)
 					setStore({companies: data})
-				} )
+				})
 				
-				try { 
-					// const response = await fetch(`${store.apiUrl}/company` , {
-					// 	method: 'GET',
-					// 	mode: "no-cors",
-					// 	headers: {
-					// 		'Content-Type': 'application/json',
-					// 		'Access-Control-Allow-Origin': '*'
-					// 	}
-					// })
-					// const data = await response.json()
-					// console.log(data, 'data')
-					// const response = await fetch(`${store.apiUrl}/company`)
-					// console.log(`${store.apiUrl}/company`,'url')
-					// console.log(response,'RESPUESTA API COMPANY')
+				// try { 
+				// 	// const response = await fetch(`${store.apiUrl}/company` , {
+				// 	// 	method: 'GET',
+				// 	// 	mode: "no-cors",
+				// 	// 	headers: {
+				// 	// 		'Content-Type': 'application/json',
+				// 	// 		'Access-Control-Allow-Origin': '*'
+				// 	// 	}
+				// 	// })
+				// 	// const data = await response.json()
+				// 	// console.log(data, 'data')
+				// 	// const response = await fetch(`${store.apiUrl}/company`)
+				// 	// console.log(`${store.apiUrl}/company`,'url')
+				// 	// console.log(response,'RESPUESTA API COMPANY')
 					
-					// console.log(data,'data API COMPANY')
-					// if(response.ok){
-					// 	const data = await response.json()
-					// 	console.log(data)
-					// 	setStore({companies: data})
-					// 	return true
-					// }
-					// // console.log(data)
-					// setStore({companies: false})
-					// return false
-				} catch (error) { 
-					console.log(error)
-					setStore({companies: false})
-					return false
+				// 	// console.log(data,'data API COMPANY')
+				// 	// if(response.ok){
+				// 	// 	const data = await response.json()
+				// 	// 	console.log(data)
+				// 	// 	setStore({companies: data})
+				// 	// 	return true
+				// 	// }
+				// 	// // console.log(data)
+				// 	// setStore({companies: false})
+				// 	// return false
+				// } catch (error) { 
+				// 	console.log(error)
+				// 	setStore({companies: false})
+				// 	return false
 					
-				}
+				// }
 			},
 			addCompany: async (company) => {
 				const store = getStore()
@@ -175,7 +175,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} )
 				
 				try { 
-					// const response = await fetch(`${store.apiUrl}/company` , {
+					// const response = await fetch(`${store.apiUrl}/product` , {
 					// 	method: 'GET',
 					// 	mode: "no-cors",
 					// 	headers: {
@@ -185,23 +185,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// })
 					// const data = await response.json()
 					// console.log(data, 'data')
-					// const response = await fetch(`${store.apiUrl}/company`)
-					// console.log(`${store.apiUrl}/company`,'url')
-					// console.log(response,'RESPUESTA API COMPANY')
+					// const response = await fetch(`${store.apiUrl}/product`)
+					// console.log(`${store.apiUrl}/product`,'url')
+					// console.log(response,'RESPUESTA API product')
 					
-					// console.log(data,'data API COMPANY')
+					// console.log(data,'data API product')
 					// if(response.ok){
 					// 	const data = await response.json()
 					// 	console.log(data)
-					// 	setStore({companies: data})
+					// 	setStore({products: data})
 					// 	return true
 					// }
 					// // console.log(data)
-					// setStore({companies: false})
+					// setStore({products: false})
 					// return false
 				} catch (error) { 
 					console.log(error)
-					setStore({companies: false})
+					setStore({products: false})
 					return false
 					
 				}
@@ -210,7 +210,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				const actions = getActions()
 				try { 
-					const response = await fetch(`${store.apiUrl}/product`, {
+					console.log(store.apiUrl)
+					const response = await fetch(`${store.apiUrl}/product`,
+					 {
 						method: 'POST',
 						body: JSON.stringify(product),
 						headers: {

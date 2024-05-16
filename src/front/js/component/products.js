@@ -66,4 +66,4 @@ const Products = () => {
     );
 };
 
-export default Companies;
+export default Products;
