@@ -26,6 +26,7 @@ class Company(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     # product = db.relationship('Product', backref='product')
+    products = db.relationship('Product', backref='company', lazy=True)
 
     
 
@@ -46,9 +47,10 @@ class Product(db.Model):
     name = db.Column(db.String(120),nullable=False)
     description = db.Column(db.String(120), nullable=False)
     quantity = db.Column(db.Integer, unique=False, nullable=False)
-    price = db.Column(db.Integer, unique=False, nullable=False)
+    price = db.Column(db.Float, unique=False, nullable=False)
     # category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False) #agregar relationship a category
     # company_id = db.Column(db.Integer, db.ForeignKey('company.id'),nullable=False)
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'),nullable=False)
     
 
     def __repr__(self):
@@ -62,6 +64,6 @@ class Product(db.Model):
             "quantity": self.quantity,
             "price": self.price,
             # "category_id": self.category_id,
-            # "company_id": self.company_id
+            "company_id": self.company_id
             
         }

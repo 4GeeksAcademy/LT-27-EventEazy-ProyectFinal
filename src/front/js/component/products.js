@@ -9,6 +9,14 @@ const Products = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
 
+    useEffect(()=>{
+        console.log("se cargo products")
+        console.log(store.products)
+        actions.getProducts()
+        console.log(store.products)
+
+    },[])
+
     return (
         <>
             <div className="">
@@ -32,17 +40,18 @@ const Products = () => {
                                                 alt="..."
                                             />
                                         </div>
-                                        <div className="col-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title"><span className="border-bottom">{product.name}</span></h5>
-                                                <p className="card-text"><span className="border-bottom">{product.description}</span></p>
+                                        <div className="col-8 ">
+                                            <div className="card-body ms-3">
+                                                <h5 className="card-title"><span className="border-bottom">Name:{product.name}</span></h5>
+                                                <p className="card-text"><span className="border-bottom">Description:{product.description}</span></p>
                                                 <p className="card-text">
                                                     <small className="text-body-secondary">
-                                                        <span className="border-bottom">{product.quantity}</span>
+                                                        <span className="border-bottom">Quantity:{product.quantity}</span>
                                                     </small>
                                                 </p>
-                                                <p className="card-text"><span className="border-bottom">{product.price}</span></p>
-                                                <p className="card-text"><span className="border-bottom">{product.category_id}</span></p>
+                                                <p className="card-text"><span className="border-bottom">Price:{product.price}</span></p>
+                                                {/* <p className="card-text"><span className="border-bottom">{product.category_id}</span></p> */}
+                                                <p className="card-text"><span className="border-bottom">Company Id:{product.company_id}</span></p>
 
 
                                             </div>

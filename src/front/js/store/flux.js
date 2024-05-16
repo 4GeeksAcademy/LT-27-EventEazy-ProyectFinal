@@ -166,7 +166,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			/////////////////////PRODUCT///////////////////////////////////////////////////////////
-			getProducts: async () => {
+			getProducts:  () => {
 				const store = getStore()
 				fetch(`${store.apiUrl}/product`)
 				.then((response)=>response.json() )

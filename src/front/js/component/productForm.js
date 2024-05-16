@@ -60,8 +60,8 @@ export const ProductForm = () => {
                     <label htmlFor="inputPrice">Price</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setProduct({ ...product, category_id: e.target.value })} value={product.category_id} name="category_id" type="number" className="form-control" id="inputCategory_id" placeholder="Enter Category id" />
-                    <label htmlFor="inputCategory_id">Category_id</label>
+                    <input onChange={(e) => setProduct({ ...product, company_id: e.target.value })} value={product.company_id} name="company_id" type="number" className="form-control" id="inputCompany_id" placeholder="Enter Company id" />
+                    <label htmlFor="inputCategory_id">Company_id</label>
                 </div>
                 {/* <div className="form-floating mb-3">
                     <select
