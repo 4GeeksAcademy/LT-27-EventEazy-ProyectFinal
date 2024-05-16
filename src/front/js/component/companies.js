@@ -11,7 +11,7 @@ const Companies = () => {
     return (
         <>
             <div className="">
-                <Link to="/add">
+                <Link to="/add-company">
                     <button className="btn btn-primary ">Add new company</button>
                 </Link>
             </div>
@@ -44,7 +44,7 @@ const Companies = () => {
                                         </div>
                                         <div className="d-flex col-2  justify-content-around my-5">
                                             <div >
-                                                <i role="button" onClick={() => navigate("/edit/" + company.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
+                                                <i role="button" onClick={() => navigate("/edit-company/" + company.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
                                             </div>
                                             <div>
                                                 <i role="button" onClick={() => actions.deleteCompany(company.id)} className="bi bi-trash-fill fs-5 rounded-circle"></i>

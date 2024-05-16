@@ -13,6 +13,7 @@ import { Footer } from "./component/footer";
 import { CompanyForm } from "./component/companyForm";
 import { AddCategory } from "./component/add-category";
 import { ViewCategory } from "./component/viewCategories";
+import { Company } from "./pages/company";
 
 //create your first component
 const Layout = () => {
@@ -32,10 +33,11 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
-                        <Route path="/add" element={<CompanyForm />} />
-						<Route path="/edit/:id" element={<CompanyForm />} />
                         <Route path="/categories" element={<ViewCategory />} />
                         <Route path="/add-category" element={<AddCategory />} />
+                        <Route element={<Company />} path="/companies" />
+                        <Route element={<CompanyForm />} path="/add-company" />
+						<Route element={<CompanyForm />} path="/edit-company/:id" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
