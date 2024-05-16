@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import { Context } from "../store/appContext";
 import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/companies.css";
 
 
 const Companies = () => {
