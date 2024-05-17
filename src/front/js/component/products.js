@@ -25,14 +25,14 @@ const Products = () => {
                 </Link>
             </div>
             <div className="container-fluid m-3 p-3 ">
-                <div className=" ">
                     <h1 className="text-center text-secondary">Products</h1>
+                <div className="d-flex flex-wrap">
                     {store.products &&
                         store.products.length > 0 &&
                         store.products.map((product) => {
                             return (
-                                <div key={product.id} className="card w-100  m-3 border border-3 rounded  p-2 text-dark bg-opacity-10" style={{ width: "540px" }}>
-                                    <div className="row ">
+                                <div key={product.id} className="card w-25  m-3 border border-3 rounded  p-2 text-dark bg-opacity-10 " style={{ width: "480px" }}>
+                                    <div className="row flex-column ">
                                         <div className="col-2 ">
                                             <img
                                                 src={rigoImage}
@@ -56,7 +56,11 @@ const Products = () => {
 
                                             </div>
                                         </div>
+                                        
                                         <div className="d-flex col-2  justify-content-around my-5">
+                                            <Link to={"/productDetail/" + product.id } className="btn btn-outline-primary" >
+					                            <span>More Detaills</span>
+					                        </Link>
                                             <div >
                                                 <i role="button" onClick={() => navigate("/edit-product/" + product.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
                                             </div>

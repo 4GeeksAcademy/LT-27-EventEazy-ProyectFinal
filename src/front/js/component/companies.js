@@ -9,6 +9,14 @@ const Companies = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
 
+    useEffect(()=>{
+        console.log("se cargo companies")
+        console.log(store.companies)
+        actions.getCompanies()
+        console.log(store.companies)
+
+    },[])
+
     return (
         <>
             <div className="">
