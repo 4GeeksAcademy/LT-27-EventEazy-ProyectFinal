@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
+			categories: [],
 			companies: [],
 			apiUrl: `${process.env.BACKEND_URL}/api`,
 			products: []
@@ -283,6 +284,80 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			getCategories: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${store.apiUrl}/category`)
+					console.log(response)
+					if (response.ok) {
+						const data =  await response.json();
+						console.log(data);
+						setStore({categories: data})
+					}
+				} catch (error) {
+					console.log(error)
+				}
+			},
+
+			addCategory: async (category) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/category` , {
+						method: 'POST',
+						body: JSON.stringify({
+							"name": category
+						}),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					if (response.ok) {
+						actions.getCategories();
+					}
+				} catch (error) {
+					
+				}
+			},
+
+			editCategory: async (id, newName) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/category/${id}` , {
+						method: 'PUT',
+						body: JSON.stringify({
+							"name": newName
+						}),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					if (response.ok) {
+						actions.getCategories();
+					}
+				} catch (error) {
+					
+				}
+			},
+
+			deleteCategory: async (id) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/category/${id}` , {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					if (response.ok) {
+						actions.getCategories();
+					}
+				} catch (error) {
+					
+				}
+			},
 		}
 	};
 };
