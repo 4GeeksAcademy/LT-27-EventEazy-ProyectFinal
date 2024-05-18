@@ -51,7 +51,7 @@ const Layout = () => {
                         <Route element={<ProductForm />} path="/add-product" />
 						<Route element={<ProductForm />} path="/edit-product/:id" />
                         <Route element={<ProductOrdersList />} path="/product-orders" />
-                        <Route element={<ProductOrderDetail />} path="/productDetail/:id" />
+                        <Route element={<ProductOrderDetail />} path="/productOrderDetail/:id" />
                         <Route element={<ProductOrderForm />} path="/add-product-order" />
 						<Route element={<ProductOrderForm />} path="/edit-product-order/:id" />
                     </Routes>
