@@ -12,8 +12,11 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { CompanyForm } from "./component/companyForm";
 import { AddCategory } from "./component/add-category";
+
 import { ViewCategory } from "./component/viewCategories";
 import { Company } from "./pages/company";
+import { AddUser } from "./component/add-user";
+import { ViewAllUsers } from "./component/viewAllUsers";
 
 //create your first component
 const Layout = () => {
@@ -35,6 +38,8 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                         <Route path="/categories" element={<ViewCategory />} />
                         <Route path="/add-category" element={<AddCategory />} />
+                        <Route path="/all-users" element={<ViewAllUsers />} />
+                        <Route path="/add-user" element={<AddUser />} />
                         <Route element={<Company />} path="/companies" />
                         <Route element={<CompanyForm />} path="/add-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />

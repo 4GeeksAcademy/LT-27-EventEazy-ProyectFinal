@@ -21,6 +21,8 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+# company routes ////////////////////////////////////////////////////
+
 @api.route('/company', methods=['GET'])
 def get_companies():
     all_companies = Company.query.all()
@@ -77,7 +79,7 @@ def update_company(company_id):
 
     return jsonify(company.serialize()), 200
 
-
+# category routes ////////////////////////////////////////////////////
 
 @api.route('/category', methods=['GET'])
 def get_category():
@@ -121,5 +123,60 @@ def delete_category_id(category_id):
         db.session.delete(category)
         db.session.commit()
         return jsonify({"msg": "Category successfully deleted!"}), 200
+    else:
+        return jsonify({"msg": "Try again"}), 404
+    
+# user routes ////////////////////////////////////////////////////
+
+@api.route('/user', methods=['GET'])
+def get_users():
+    user = User.query.all()
+    serialize_user = list(map(lambda x: x.serialize(), user))
+    
+    return jsonify(serialize_user), 200
+
+@api.route('/user/<int:user_id>', methods=['GET'])
+def get_user_by_id(user_id):
+    single_user = User.query.get(user_id)
+    if single_user is None:
+        return jsonify({"msg":"User not found"}), 404
+    serialize_one_user = single_user.serialize()
+
+    return jsonify(serialize_one_user), 200
+
+@api.route('/user', methods=['POST'])
+def add_user():
+    body= request.get_json()
+    new_user = User(
+        name=body['name'],
+        email=body['email'],
+        password=body['password']
+        )
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"msg": "User added successfully!"}), 200
+
+@api.route('/user/<int:user_id>', methods=['PUT'])
+def modify_user(user_id):
+    user = User.query.get(user_id)
+    body= request.get_json()
+    if 'name' in body:
+        user.name = body['name']
+    if 'email' in body:
+        user.email = body['email']
+    if 'password' in body:
+        user.password = body['password']
+    db.session.commit()
+    
+    return jsonify(user.serialize(), {"msg": "User updated successfully"}), 200
+
+@api.route('/user/<int:user_id>', methods=['DELETE'])
+def delete_user_id(user_id):
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"msg": "User successfully deleted!"}), 200
     else:
         return jsonify({"msg": "Try again"}), 404

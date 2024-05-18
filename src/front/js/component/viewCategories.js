@@ -3,9 +3,9 @@ import { Context } from "../store/appContext";
 
 
 export const ViewCategory = () => {
-    const { store, actions } = useContext(Context);
 
-    const [editedCategory, setEditedCategory] = useState("");
+    const { store, actions } = useContext(Context);
+    const [editedCategory, setEditedCategory] = useState('');
     const [editedIndex, setEditedIndex] = useState(null);
 
     const handleEditCategory = (category) => {
@@ -16,7 +16,7 @@ export const ViewCategory = () => {
     const saveEditedCategory = () => {
         actions.editCategory(editedIndex, editedCategory);
         setEditedCategory("");
-        setEditedIndex(null);
+        setEditedIndex(null); 
     };
 
     useEffect(() => {
@@ -25,11 +25,11 @@ export const ViewCategory = () => {
 
     return (
         <>
-            <div className="container text-center">
+            <div className="container">
                 <h1 className="title-categories mt-5">Categories</h1>
                 <div>
                     <ul>
-                        {store.categories.map((category, index) => (
+                        {store.categories.map((category) => (
                             <li key={category.id}>
                                 {category.id === editedIndex ? (
                                     <input type="text" value={editedCategory} onChange={(e) => setEditedCategory(e.target.value)} />
