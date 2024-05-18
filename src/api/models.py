@@ -23,7 +23,6 @@ class Company(db.Model):
     name = db.Column(db.String(120) )
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    # product = db.relationship('Product', backref='product')
     products = db.relationship('Product', backref='company', lazy=True)
 
     
@@ -40,23 +39,14 @@ class Company(db.Model):
         }
 
 
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120),nullable=False)
-    description = db.Column(db.String(120), nullable=False)
-    quantity = db.Column(db.Integer, unique=False, nullable=False)
-    price = db.Column(db.Float, unique=False, nullable=False)
-    # category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False) #agregar relationship a category
-    # company_id = db.Column(db.Integer, db.ForeignKey('company.id'),nullable=False)
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id'),nullable=False)
     
 
-    def __repr__(self):
-        return f'<Product {self.name}>'
     
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
+    products = db.relationship('Product', backref='category', lazy=True)
+
 
     def __repr__(self):
         return f'<Category {self.name}>'
@@ -64,11 +54,55 @@ class Category(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "name": self.name
+            
+        }
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120),nullable=False)
+    description = db.Column(db.String(120), nullable=False)
+    quantity = db.Column(db.Integer, unique=False, nullable=False)
+    price = db.Column(db.Float, unique=False, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False) 
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'),nullable=False)
+    product_orders = db.relationship('ProductOrders', backref='product', lazy=True)
+
+    
+
+    def __repr__(self):
+        return f'<Product {self.name}>'
+    
+    def serialize(self):
+        return {
+            "id": self.id,
             "name": self.name,
             "description": self.description,
             "quantity": self.quantity,
             "price": self.price,
-            # "category_id": self.category_id,
+            "category_id": self.category_id,
             "company_id": self.company_id
             
+        }
+    
+
+class ProductOrders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'),nullable=False) 
+    # order_id = db.Column(db.Integer, db.ForeignKey('order.id'),nullable=False) 
+    quantity = db.Column(db.Integer, unique=False, nullable=False)
+    price = db.Column(db.Float, unique=False, nullable=False)
+    
+    
+
+    def __repr__(self):
+        return f'<Product {self.product_id}>'
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "product_id": self.product_id,
+            # "order_id": self.order_id ,          
+            "quantity": self.quantity,
+            "price": self.price
         }

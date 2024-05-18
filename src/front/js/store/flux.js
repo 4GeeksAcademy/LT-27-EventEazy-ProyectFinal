@@ -16,8 +16,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			categories: [],
 			companies: [],
+			company:{},
 			apiUrl: `${process.env.BACKEND_URL}/api`,
-			products: []
+			products: [],
+			product:{},
+			productOrders:[],
+			singleProductOrder:{}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -91,6 +95,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// 	return false
 					
 				// }
+			},
+			getCompany:  (id) => {
+				const store = getStore()
+				fetch(`${store.apiUrl}/company/{id}`)
+				.then((response)=>response.json() )
+				.then((data)=>{console.log(data)
+					setStore({company: data})
+				})
 			},
 			addCompany: async (company) => {
 				const store = getStore()
@@ -206,6 +218,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 					
 				}
+			},
+			getProduct:  (id) => {
+				const store = getStore()
+				fetch(`${store.apiUrl}/product/${id}`)
+				.then((response)=>response.json() )
+				.then((data)=>{console.log(data)
+					setStore({product: data})
+				})
 			},
 			addProduct: async (product) => {
 				const store = getStore()
@@ -355,6 +375,130 @@ const getState = ({ getStore, getActions, setStore }) => {
 						actions.getCategories();
 					}
 				} catch (error) {
+					
+				}
+			},
+			///////////////////////////PRODUCT_ORDERS///////////////////////////////////
+			getProductOrders:  () => {
+				const store = getStore()
+				fetch(`${store.apiUrl}/product-orders`)
+				.then((response)=>response.json() )
+				.then((data)=>{console.log(data)
+					setStore({productOrders: data})
+				} )
+				
+				try { 
+					// const response = await fetch(`${store.apiUrl}/product` , {
+					// 	method: 'GET',
+					// 	mode: "no-cors",
+					// 	headers: {
+					// 		'Content-Type': 'application/json',
+					// 		'Access-Control-Allow-Origin': '*'
+					// 	}
+					// })
+					// const data = await response.json()
+					// console.log(data, 'data')
+					// const response = await fetch(`${store.apiUrl}/product`)
+					// console.log(`${store.apiUrl}/product`,'url')
+					// console.log(response,'RESPUESTA API product')
+					
+					// console.log(data,'data API product')
+					// if(response.ok){
+					// 	const data = await response.json()
+					// 	console.log(data)
+					// 	setStore({products: data})
+					// 	return true
+					// }
+					// // console.log(data)
+					// setStore({products: false})
+					// return false
+				} catch (error) { 
+					console.log(error)
+					setStore({productOrders: false})
+					return false
+					
+				}
+			},
+			getProductOrder:  (id) => {
+				const store = getStore()
+				fetch(`${store.apiUrl}/product-orders/${id}`)
+				.then((response)=>response.json() )
+				.then((data)=>{console.log(data)
+					setStore({singleProductOrder: data})
+				})
+			},
+			addProductOrder: async (productOrder) => {
+				const store = getStore()
+				const actions = getActions()
+				try { 
+					console.log(store.apiUrl)
+					const response = await fetch(`${store.apiUrl}/product-orders`,{
+						method: 'POST',
+						body: JSON.stringify(productOrder),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getProductOrders()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			editProductOrder: async (productOrder,id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/product-orders/${id}`, {
+						method: 'PUT',
+						body: JSON.stringify(productOrder),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getProductOrders()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			}, 
+			deleteProductOrder: async (id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/product-orders/${id}`, { method: 'DELETE'})
+					console.log(response)
+					const data = await response
+					if(response.ok){
+						console.log(data)
+						actions.getProductOrders()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
 					
 				}
 			},

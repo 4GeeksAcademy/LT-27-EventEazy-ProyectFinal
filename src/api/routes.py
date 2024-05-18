@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,Company, Category,Product
+from api.models import db, User,Company, Category,Product,ProductOrders
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -103,7 +103,7 @@ def add_product():
         description=body['description'],
         quantity=body['quantity'],
         price=body['price'],
-        # category_id=body['category_id'],
+        category_id=body['category_id'],
         company_id=body['company_id']
     )
     db.session.add(new_product)
@@ -136,8 +136,8 @@ def update_product(product_id):
         product.quantity = body['quantity']
     if 'price' in body:
         product.price = body['price']
-    # if 'category_id' in body:
-    #     product.category_id = body['category_id']
+    if 'category_id' in body:
+        product.category_id = body['category_id']
     if 'company_id' in body:
          product.companany_id = body['company_id']
     
@@ -190,3 +190,65 @@ def delete_category_id(category_id):
         return jsonify({"msg": "Category successfully deleted!"}), 200
     else:
         return jsonify({"msg": "Try again"}), 404
+
+#ENDPOINTS ProductOrders
+
+@api.route('/product-orders', methods=['GET'])
+def get_product_orders():
+    all_product_orders = ProductOrders.query.all()
+    results = list(map(lambda elemento: elemento.serialize() , all_product_orders))
+
+    return jsonify(results), 200
+
+
+@api.route('/product-orders/<int:product_orders_id>', methods=['GET'])
+def get_product_order(product_orders_id):
+    one_product_orders = Product.query.filter_by(id=product_orders_id).first()
+
+    return jsonify(one_product_orders.serialize()), 200
+
+
+@api.route('/product-orders', methods=['POST'])
+def add_product_orders():
+    body= request.get_json()
+    new_product_orders = ProductOrders(
+        product_id=body['product_id'],
+        #order_id=body['order_id'],
+        quantity=body['quantity'],
+        price=body['price'],
+    )
+    db.session.add(new_product_orders)
+    db.session.commit()
+
+    return jsonify(new_product_orders.serialize()), 201
+
+@api.route('/product-orders/<int:product_orders_id>', methods=['DELETE'])
+def delete_product_orders(product_orders_id):
+    one_product_orders = ProductOrders.query.filter_by(id=product_orders_id).first()
+    db.session.delete(one_product_orders)
+    db.session.commit()
+    response_body = {
+        "msg": "Product eliminado correctamente",
+        "product_id": product_orders_id,
+        
+    }
+
+    return jsonify(response_body), 200
+
+@api.route('/product-orders/<int:product_orders_id>', methods=['PUT'])
+def update_product_orders(product_orders_id):
+    product_orders = ProductOrders.query.filter_by(id=product_orders_id).first()
+    body= request.get_json()
+    # if 'order_id' in body:
+    #     product_orders.order_id = body['order_id']
+    if 'product_id' in body:
+        product_orders.product_id = body['product_id']
+    if 'quantity' in body:
+        product_orders.quantity = body['quantity']
+    if 'price' in body:
+        product_orders.price = body['price']
+    
+    db.session.commit()
+ 
+
+    return jsonify(product_orders.serialize()), 200

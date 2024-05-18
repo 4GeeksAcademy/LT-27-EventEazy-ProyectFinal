@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 
 export const ProductForm = () => {
     const { store, actions } = useContext(Context);
-    const [product, setProduct] = useState({ name: '', description: '', quantity: '', price: '',category_id: '' });
+    const [product, setProduct] = useState({ name: '', description: '', quantity: '', price: '',category_id: '',company_id: '' });
     const navigate = useNavigate();
     const params = useParams();
 
@@ -28,7 +28,7 @@ export const ProductForm = () => {
                 setProduct(selectedProduct);
             }
         } else {
-            setProduct({ name: '', description: '', quantity: '', price: '',category_id: ''});
+            setProduct({ name: '', description: '', quantity: '', price: '',category_id: '',company_id: ''});
         }
     }, [params, store.products]);
 
@@ -62,6 +62,10 @@ export const ProductForm = () => {
                 <div className="form-floating mb-3">
                     <input onChange={(e) => setProduct({ ...product, company_id: e.target.value })} value={product.company_id} name="company_id" type="number" className="form-control" id="inputCompany_id" placeholder="Enter Company id" />
                     <label htmlFor="inputCategory_id">Company_id</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input onChange={(e) => setProduct({ ...product, category_id: e.target.value })} value={product.category_id} name="category_id" type="number" className="form-control" id="inputcategory_id" placeholder="Enter Category id" />
+                    <label htmlFor="inputCategory_id">Category_id</label>
                 </div>
                 {/* <div className="form-floating mb-3">
                     <select
