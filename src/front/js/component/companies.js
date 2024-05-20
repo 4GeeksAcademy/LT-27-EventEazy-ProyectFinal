@@ -51,6 +51,9 @@ const Companies = () => {
                                             </div>
                                         </div>
                                         <div className="d-flex col-2  justify-content-around my-5">
+                                        <Link to={"/company-detail/" + company.id } className="btn btn-outline-primary" >
+					                            <span>More Details</span>
+					                        </Link>
                                             <div >
                                                 <i role="button" onClick={() => navigate("/edit-company/" + company.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
                                             </div>

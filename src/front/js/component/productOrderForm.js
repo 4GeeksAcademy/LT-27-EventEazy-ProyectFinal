@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 
 export const ProductOrderForm = () => {
     const { store, actions } = useContext(Context);
-    const [productOrder, setProductOrder] = useState({ quantity: '', price: '',product_id: '',  }); //order_id: ''
+    const [productOrder, setProductOrder] = useState({ quantity: '', price: '',product_id: '', order_id: ''  }); 
     const navigate = useNavigate();
     const params = useParams();
 
@@ -28,7 +28,7 @@ export const ProductOrderForm = () => {
                 setProductOrder(selectedProductOrder);
             }
         } else {
-            setProductOrder({ quantity: '', price: '',product_id: '', order_id: ''});
+            setProductOrder({ quantity: '', price: '',product_id: '', order_id: '' }); 
         }
     }, [params, store.productOrders]);
 
@@ -44,7 +44,7 @@ export const ProductOrderForm = () => {
             <form className="container" onSubmit={handleSubmit}>
                 <h1>{!params.id ? "Add a new product Order" : "Edit product Order " + params.id}</h1>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setProductOrder({ ...productOrder, quantity: e.target.value })} type="text" className="form-control" name="quantity" value={productOrder.quantity} id="inputName" placeholder="Enter Quantity" />
+                    <input onChange={(e) => setProductOrder({ ...productOrder, quantity: e.target.value })} type="text" className="form-control" name="quantity" value={productOrder.quantity} id="inputQuantity" placeholder="Enter Quantity" />
                     <label htmlFor="inputQuantity">Quantity</label>
                 </div>
                 <div className="form-floating mb-3">

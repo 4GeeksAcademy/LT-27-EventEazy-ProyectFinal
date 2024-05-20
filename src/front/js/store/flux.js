@@ -98,7 +98,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getCompany:  (id) => {
 				const store = getStore()
-				fetch(`${store.apiUrl}/company/{id}`)
+				fetch(`${store.apiUrl}/company/${id}`)
 				.then((response)=>response.json() )
 				.then((data)=>{console.log(data)
 					setStore({company: data})
@@ -436,7 +436,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: 'POST',
 						body: JSON.stringify(productOrder),
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*'
 						}
 					})
 					console.log(response)

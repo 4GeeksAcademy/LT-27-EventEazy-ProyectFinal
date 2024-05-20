@@ -58,7 +58,7 @@ const ProductOrders = () => {
                                         </div>
                                         
                                         <div className="d-flex col-2  justify-content-around my-5">
-                                            <Link to={"/productOrderDetail/" + productOrder.id } className="btn btn-outline-primary" >
+                                            <Link to={"/product-order-detail/" + productOrder.id } className="btn btn-outline-primary" >
 					                            <span>More Detaills</span>
 					                        </Link>
                                             <div >
