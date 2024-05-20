@@ -246,6 +246,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// From here on goes the code for users.
 
+			getUserById: async (id) => {
+				try {
+					const response = await fetch(`https://your-api-url/users/${id}`);
+					if (response.ok) {
+						const user = await response.json();
+						return user;
+					} else {
+						console.error("Failed to fetch user");
+						return null;
+					}
+				} catch (error) {
+					console.error("Error fetching user:", error);
+					return null;
+				}
+			},
+
 			getUsers: async () => {
 				const store = getStore();
 				try {

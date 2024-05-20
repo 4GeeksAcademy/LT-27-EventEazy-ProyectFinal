@@ -28,7 +28,7 @@ export const AddCategory = () => {
         <>
             <div>
                 <Link to="/categories">
-                    <a class="back-categories" href="#"><h5>Return to categories</h5></a>
+                    <h5>Return to categories</h5>
                 </Link>
                 <h1 className="addCategory-title mt-5">Add a new category</h1>
                 <div className="form-floating mb-3 mt-2">

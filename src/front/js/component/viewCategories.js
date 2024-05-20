@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 
@@ -25,6 +26,11 @@ export const ViewCategory = () => {
 
     return (
         <>
+            <div className="button-add-category text-end">
+                <Link to="/add-category">
+                    <button type="button" className="btn btn-success">Add new category</button>
+                </Link>
+            </div>
             <div className="container">
                 <h1 className="title-categories mt-5">Categories</h1>
                 <div>

@@ -17,6 +17,7 @@ import { ViewCategory } from "./component/viewCategories";
 import { Company } from "./pages/company";
 import { AddUser } from "./component/add-user";
 import { ViewAllUsers } from "./component/viewAllUsers";
+import { DetailsUser } from "./component/details-users";
 
 //create your first component
 const Layout = () => {
@@ -40,6 +41,7 @@ const Layout = () => {
                         <Route path="/add-category" element={<AddCategory />} />
                         <Route path="/all-users" element={<ViewAllUsers />} />
                         <Route path="/add-user" element={<AddUser />} />
+                        <Route path="/more-details-user/:theid" element={<DetailsUser />} />
                         <Route element={<Company />} path="/companies" />
                         <Route element={<CompanyForm />} path="/add-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />

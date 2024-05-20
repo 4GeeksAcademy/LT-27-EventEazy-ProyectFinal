@@ -21,7 +21,7 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-# company routes ////////////////////////////////////////////////////
+# company endpoints ////////////////////////////////////////////////////
 
 @api.route('/company', methods=['GET'])
 def get_companies():
@@ -79,7 +79,7 @@ def update_company(company_id):
 
     return jsonify(company.serialize()), 200
 
-# category routes ////////////////////////////////////////////////////
+# category endpoints ////////////////////////////////////////////////////
 
 @api.route('/category', methods=['GET'])
 def get_category():
@@ -126,7 +126,7 @@ def delete_category_id(category_id):
     else:
         return jsonify({"msg": "Try again"}), 404
     
-# user routes ////////////////////////////////////////////////////
+# user endpoints ////////////////////////////////////////////////////
 
 @api.route('/user', methods=['GET'])
 def get_users():
@@ -180,3 +180,4 @@ def delete_user_id(user_id):
         return jsonify({"msg": "User successfully deleted!"}), 200
     else:
         return jsonify({"msg": "Try again"}), 404
+    
