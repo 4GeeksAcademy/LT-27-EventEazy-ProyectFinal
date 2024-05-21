@@ -5,6 +5,10 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User,Company, Category
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 api = Blueprint('api', __name__)
 
@@ -182,3 +186,18 @@ def delete_user_id(user_id):
         return jsonify({"msg": "Try again"}), 404
     
 
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    user= User.query.filter_by(email=email).first()
+
+    if user == None:
+        return jsonify({"msg": "Could not find user "}), 401
+    if  password != user.password:
+        return jsonify({"msg": "Bad  password "}), 401
+
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
