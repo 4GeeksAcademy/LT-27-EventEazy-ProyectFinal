@@ -207,6 +207,7 @@ def get_product_orders():
 @api.route('/product-orders/<int:product_orders_id>', methods=['GET'])
 def get_product_order(product_orders_id):
     one_product_orders = ProductOrders.query.filter_by(id=product_orders_id).first()
+    
 
     return jsonify(one_product_orders.serialize()), 200
 
