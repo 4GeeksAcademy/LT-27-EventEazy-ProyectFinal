@@ -466,6 +466,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${store.apiUrl}/product-orders/${id}`, {
 						method: 'PUT',
 						body: JSON.stringify(productOrder),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						actions.getProductOrders()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+			deleteProductOrder: async (id) => {
+				const store = getStore()
+				const actions = getActions()
+
+				try { 
+					const response = await fetch(`${store.apiUrl}/product/${id}`, { method: 'DELETE'})
+					console.log(response)
+					const data = await response
+					if(response.ok){
+						console.log(data)
+						actions.getProductOrders()
+						return true
+					}
+					console.log(data)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
+			},
+
+
+						
 
 			// From here on goes the code for users.
 
@@ -573,34 +616,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 				}
 			}, 
-			deleteProductOrder: async (id) => {
-				const store = getStore()
-				const actions = getActions()
-
-				try { 
-					const response = await fetch(`${store.apiUrl}/product-orders/${id}`, { method: 'DELETE'})
-					console.log(response)
-					const data = await response
-					if(response.ok){
-						console.log(data)
-						actions.getProductOrders()
-						return true
-					}
-					console.log(data)
-					return false
-				} catch (error) { 
-					console.log(error)
-					return false
-					
-				}
-			},
-					if (response.ok) {
-						actions.getUsers();
-					}
-				} catch (error) {
-					
-				}
-			}
+			
 		}
 	};
 };
