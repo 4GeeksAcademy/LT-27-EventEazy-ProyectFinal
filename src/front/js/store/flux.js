@@ -238,7 +238,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: 'POST',
 						body: JSON.stringify(product),
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*'
 						}
 					})
 					console.log(response)
