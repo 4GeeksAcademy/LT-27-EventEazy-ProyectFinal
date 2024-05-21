@@ -10,14 +10,26 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { CompanyForm } from "./component/companyForm";
 import { AddCategory } from "./component/add-category";
 
 import { ViewCategory } from "./component/viewCategories";
+<<<<<<< HEAD
+import { CompanyForm } from "./component/companyForm";
+import { CompaniesList } from "./pages/companiesList";
+import { CompanyView} from "./pages/companyView";
+import { ProductForm } from "./component/productForm";
+import { ProductsList } from "./pages/productsList";
+import { ProductView } from "./pages/productView";
+import { ProductOrderForm} from "./component/productOrderForm";
+import { ProductOrdersList } from "./pages/productOrdersList";
+import { ProductOrderView } from "./pages/productOrderView";
+
+=======
 import { Company } from "./pages/company";
 import { AddUser } from "./component/add-user";
 import { ViewAllUsers } from "./component/viewAllUsers";
 import { DetailsUser } from "./component/details-users";
+>>>>>>> Develop
 
 //create your first component
 const Layout = () => {
@@ -39,12 +51,25 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                         <Route path="/categories" element={<ViewCategory />} />
                         <Route path="/add-category" element={<AddCategory />} />
+
+                        <Route element={<CompaniesList />} path="/companies" />
                         <Route path="/all-users" element={<ViewAllUsers />} />
                         <Route path="/add-user" element={<AddUser />} />
                         <Route path="/more-details-user/:theid" element={<DetailsUser />} />
                         <Route element={<Company />} path="/companies" />
                         <Route element={<CompanyForm />} path="/add-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />
+                        <Route element={<CompanyView />} path="/company-detail/:id" />
+
+                        <Route element={<ProductsList />} path="/products" />
+                        <Route element={<ProductForm />} path="/add-product" />
+						<Route element={<ProductForm />} path="/edit-product/:id" />
+                        <Route element={<ProductView />} path="/product-detail/:id" />
+
+                        <Route element={<ProductOrdersList />} path="/product-orders" />
+                        <Route element={<ProductOrderForm />} path="/add-product-order" />
+						<Route element={<ProductOrderForm />} path="/edit-product-order/:id" />
+                        <Route element={<ProductOrderView />} path="/product-order-detail/:id" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>

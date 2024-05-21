@@ -8,6 +8,14 @@ const Companies = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
 
+    useEffect(()=>{
+        console.log("se cargo companies")
+        console.log(store.companies)
+        actions.getCompanies()
+        console.log(store.companies)
+
+    },[])
+
     return (
         <>
             <div className="">
@@ -43,6 +51,9 @@ const Companies = () => {
                                             </div>
                                         </div>
                                         <div className="d-flex col-2  justify-content-around my-5">
+                                        <Link to={"/company-detail/" + company.id } className="btn btn-outline-primary" >
+					                            <span>More Details</span>
+					                        </Link>
                                             <div >
                                                 <i role="button" onClick={() => navigate("/edit-company/" + company.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
                                             </div>
