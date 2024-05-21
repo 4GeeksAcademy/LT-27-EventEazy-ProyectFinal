@@ -15,6 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			categories: [],
+			users: [],
 			companies: [],
 			company:{},
 			apiUrl: `${process.env.BACKEND_URL}/api`,
@@ -304,6 +305,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// From here onwards goes the code for categories.
+
 			getCategories: async () => {
 				const store = getStore();
 				try {
@@ -463,6 +466,94 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${store.apiUrl}/product-orders/${id}`, {
 						method: 'PUT',
 						body: JSON.stringify(productOrder),
+
+			// From here on goes the code for users.
+
+			getUserById: async (id) => {
+				try {
+					const response = await fetch(`https://your-api-url/users/${id}`);
+					if (response.ok) {
+						const user = await response.json();
+						return user;
+					} else {
+						console.error("Failed to fetch user");
+						return null;
+					}
+				} catch (error) {
+					console.error("Error fetching user:", error);
+					return null;
+				}
+			},
+
+			getUsers: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${store.apiUrl}/user`)
+					console.log(response)
+					if (response.ok) {
+						const data = await response.json();
+						console.log(data);
+						setStore({users: data})
+					}
+				} catch (error) {
+					console.log(error)
+				}
+			},
+
+			addUser: async (user) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/user`, {
+						method: 'POST',
+						body: JSON.stringify(user),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+					if (response.ok) {
+						actions.getUsers();
+						return true;
+					} else {
+						console.log("Failed to add user");
+						return false;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+			},
+
+			editUser: async (id, newUser) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/user/${id}`, {
+						method: 'PUT',
+						body: JSON.stringify(newUser),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					});
+					if (response.ok) {
+						actions.getUsers();
+						return true;
+					} else {
+						console.log("Failed to edit user");
+						return false;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+			},
+
+			deleteUser: async (id) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/user/${id}` , {
+						method: 'DELETE',
 						headers: {
 							'Content-Type': 'application/json'
 						}
@@ -503,6 +594,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 				}
 			},
+					if (response.ok) {
+						actions.getUsers();
+					}
+				} catch (error) {
+					
+				}
+			}
 		}
 	};
 };
