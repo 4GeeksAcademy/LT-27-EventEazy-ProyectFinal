@@ -343,6 +343,10 @@ def signup():
     name = request.json.get("name", None)
     email = request.json.get("email", None)
     password = request.json.get("password", None)
+
+    user_exists = User.query.filter_by(email=email).first() is not None
+    if user_exists:
+        return jsonify({"error": "Email already exists"}), 409
     
     pw_hash = current_app.bcrypt.generate_password_hash(password).decode('utf-8')
     new_user= User(name=name, email=email, password=pw_hash)

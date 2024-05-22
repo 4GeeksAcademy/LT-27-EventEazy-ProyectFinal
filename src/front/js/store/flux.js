@@ -636,6 +636,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					if(response.ok){
 						console.log(data)
+						localStorage.setItem('access_token', data.access_token);
 						setStore({currentUser: data})
 						return true
 					}
