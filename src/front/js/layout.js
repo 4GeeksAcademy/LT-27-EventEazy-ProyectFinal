@@ -30,6 +30,8 @@ import { AddUser } from "./component/add-user";
 import { ViewAllUsers } from "./component/viewAllUsers";
 import { DetailsUser } from "./component/details-users";
 
+import { LoginForm } from "./component/loginForm";
+
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -69,6 +71,10 @@ const Layout = () => {
                         <Route element={<ProductOrderForm />} path="/add-product-order" />
 						<Route element={<ProductOrderForm />} path="/edit-product-order/:id" />
                         <Route element={<ProductOrderView />} path="/product-order-detail/:id" />
+                        <Route element={<LoginForm />} path="/login" />
+
+
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>
