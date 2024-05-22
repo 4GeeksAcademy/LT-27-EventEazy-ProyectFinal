@@ -4,8 +4,7 @@ import { Context } from "../store/appContext";
 
 export const LoginForm = () => {
     const { store, actions } = useContext(Context);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({  email: '', password: '' });
 
     const navigate = useNavigate();
     // const params = useParams();
@@ -13,7 +12,8 @@ export const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("send Data");
-        console.log(email,password)
+        let response = await actions.login(user)
+        response
        
     }
 
@@ -33,11 +33,11 @@ export const LoginForm = () => {
             <form className="container" onSubmit={handleSubmit}>
                 <h1>Log in</h1>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" name="email" value={email} id="inputEmail" placeholder="Enter Email" />
+                    <input onChange={(e) => setUser({...user, email: e.target.value})} type="email" className="form-control" name="email" value={user.email} id="inputEmail" placeholder="Enter Email" />
                     <label htmlFor="inputEmail">Email </label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setPassword( e.target.value)} type="password" className="form-control" name="password" value={password} id="inputPassword" placeholder="Enter Password" />
+                    <input onChange={(e) => setUser({...user, password: e.target.value})} type="password" className="form-control" name="password" value={user.password} id="inputPassword" placeholder="Enter Password" />
                     <label htmlFor="inputPassword">Password</label>
                 </div>
                 <div className="">
