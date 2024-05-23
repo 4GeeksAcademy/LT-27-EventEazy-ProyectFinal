@@ -31,6 +31,7 @@ import { ViewAllUsers } from "./component/viewAllUsers";
 import { DetailsUser } from "./component/details-users";
 
 import { LoginForm } from "./component/loginForm";
+// import { Profile } from "./pages/profile";
 
 //create your first component
 const Layout = () => {
@@ -72,6 +73,9 @@ const Layout = () => {
 						<Route element={<ProductOrderForm />} path="/edit-product-order/:id" />
                         <Route element={<ProductOrderView />} path="/product-order-detail/:id" />
                         <Route element={<LoginForm />} path="/login" />
+                        {/* <Route element={<Profile />} path="/profile" /> */}
+
+
 
 
 

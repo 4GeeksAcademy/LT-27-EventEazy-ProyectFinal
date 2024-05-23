@@ -637,7 +637,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if(response.ok){
 						console.log(data)
 						localStorage.setItem('access_token', data.access_token);
-						setStore({currentUser: data})
+						setStore({currentUser: data.user})
+						console.log("login flux", currentUser)
 						return true
 					}
 					console.log(store.currentUser)
@@ -649,6 +650,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			
 			},
+			signup: async (user) => {
+				const store = getStore();
+				const actions = getActions();
+				try { 
+					console.log(store.apiUrl);
+					const response = await fetch(`${store.apiUrl}/signup`, {
+						method: 'POST',
+						body: JSON.stringify(user),
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*'
+						}
+					});
+					console.log(response);
+					const data = await response.json();
+					if (response.ok) {
+						console.log(data);
+						return true;
+					}
+			
+					return false;
+				} catch (error) { 
+					console.log(error);
+					return false;
+				}
+			}
 		},
 	};
 };
