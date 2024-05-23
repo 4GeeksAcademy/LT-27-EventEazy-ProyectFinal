@@ -1,14 +1,14 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint,current_app
 from api.models import db, User,Company, Category,Product,ProductOrders
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
+
 
 api = Blueprint('api', __name__)
 
@@ -326,9 +326,43 @@ def login():
 
     if user == None:
         return jsonify({"msg": "Could not find user "}), 401
-    if  password != user.password:
+
+    pw_match = current_app.bcrypt.check_password_hash(user.password, password)
+    
+    if not pw_match:
         return jsonify({"msg": "Bad  password "}), 401
+    
 
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    return jsonify(user=user.serialize(), access_token=access_token)
+
+
+@api.route("/signup", methods=["POST"])
+def signup():
+    name = request.json.get("name", None)
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    user_exists = User.query.filter_by(email=email).first() is not None
+    if user_exists:
+        return jsonify({"error": "Email already exists"}), 409
+    
+    pw_hash = current_app.bcrypt.generate_password_hash(password).decode('utf-8')
+    new_user= User(name=name, email=email, password=pw_hash)
+
+    db.session.add(new_user)
+    db.session.commit()
+    db.session.refresh(new_user)
+    return jsonify(new_user.serialize())
+
+
+@api.route('/isauth', methods=['GET'])
+@jwt_required()
+def is_auth():
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        return jsonify({"msg":"User not found"}), 404
+
+    return jsonify(user.serialize()), 200

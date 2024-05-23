@@ -16,6 +16,8 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 
+from flask_bcrypt import Bcrypt
+
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -27,6 +29,11 @@ app.url_map.strict_slashes = False
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 jwt = JWTManager(app)
+
+#Configuración bcrypt
+bcrypt = Bcrypt(app)
+app.bcrypt = bcrypt
+#Fin configuración bcrypt
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")

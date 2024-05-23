@@ -22,7 +22,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			products: [],
 			product:{},
 			productOrders:[],
-			singleProductOrder:{}
+			singleProductOrder:{},
+			currentUser:{}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -617,9 +618,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 				}
 			}, 
+
+			login: async (user) => {
+				const store = getStore()
+				const actions = getActions()
+				try { 
+					console.log(store.apiUrl)
+					const response = await fetch(`${store.apiUrl}/login`,{
+						method: 'POST',
+						body: JSON.stringify(user),
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*'
+						}
+					})
+					console.log(response)
+					const data = await response.json()
+					if(response.ok){
+						console.log(data)
+						localStorage.setItem('access_token', data.access_token);
+						setStore({currentUser: data})
+						return true
+					}
+					console.log(store.currentUser)
+					return false
+				} catch (error) { 
+					console.log(error)
+					return false
+					
+				}
 			
-		}
+			},
+		},
 	};
 };
+
+
 
 export default getState;
