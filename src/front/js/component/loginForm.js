@@ -13,21 +13,27 @@ export const LoginForm = () => {
         e.preventDefault();
         console.log("Sending Data");
         const response = await actions.login(user);
-        if (response.ok) {
-            if (response.role === "user") {
-                navigate("/profile"); // Redirigir a profile
-                console.log("a profile User")
-            }
-            // else if (response.role === "company") {
-            //     navigate("/profileCompany"); // Redirigir a profile
-            //     console.log("a profile Company")
+        //  navigate("/profile-user")
+        //  navigate("/profile-company")
 
-            // }
-        }
-        else {
-            setError("Invalid email or password");
+        //  console.log("current user", store.currentUser.role)
+        console.log("current user :", store.currentUser.role)
+        // {response.ok && store.currentUser.role === "user"? navigate("/profile-user") :  setError("Invalid email or password")}
+        //     if (response.ok) {
+        //            if(response.role === "user"){
+        //                 navigate("/profile-user"); // Redirigir a profile
+        //                 console.log("a profile User")
+        //                 }
+        //            else if (response.role === "company") {
+        //                  navigate("/profile-company"); // Redirigir a profile
+        //                  console.log("a profile Company")
+        //                }
+       
+        //     else {
+        //         setError("Invalid email or password");
 
-        }
+        //     }
+        // };
     };
 
     // useEffect(() => {
@@ -38,16 +44,21 @@ export const LoginForm = () => {
 
     return (
         <>
-            <nav className="navbar navbar-light m-5">
+            <nav className="navbar navbar-light m-5 w-25 ">
+                <div className="ml-auto ">
+                    <Link to="/signup-user" className="btn btn-dark " >
+                        <span className="navbar-brand mb-0 h1 text-white">Signup User</span>
+                    </Link>
+                </div>
                 <div className="ml-auto">
-                    <Link to="/signup">
-                        <span className="navbar-brand mb-0 h1">Sign Up</span>
+                    <Link to="/signup-company" className="btn btn-dark " >
+                        <span className="navbar-brand mb-0 h1 text-white">Signup Company</span>
                     </Link>
                 </div>
             </nav>
             <form className="container" onSubmit={handleSubmit}>
-                <h1>Log in</h1>
-                {error && <div className="alert alert-danger">{error}</div>} {/* Mostrar mensaje de error si existe */}
+                <h1>Login</h1>
+                {error && <div className="alert alert-danger">{error}</div>}
                 <div className="form-floating mb-3">
                     <input
                         onChange={(e) => setUser({ ...user, email: e.target.value })}

@@ -32,7 +32,9 @@ import { DetailsUser } from "./component/details-users";
 
 import { LoginForm } from "./component/loginForm";
 import { SignupForm } from "./component/signupForm";
-import { Profile } from "./pages/profile";
+import { ProfileUser } from "./pages/profileUser";
+import { ProfileCompany } from "./pages/profileCompany";
+
 
 //create your first component
 const Layout = () => {
@@ -60,7 +62,7 @@ const Layout = () => {
                         <Route path="/more-details-user/:theid" element={<DetailsUser />} />
 
                         <Route element={<CompaniesList />} path="/companies" />
-                        <Route element={<CompanyForm />} path="/add-company" />
+                        <Route element={<CompanyForm />} path="/signup-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />
                         <Route element={<CompanyView />} path="/company-detail/:id" />
 
@@ -76,7 +78,9 @@ const Layout = () => {
                         <Route element={<LoginForm />} path="/login" />
                         <Route element={<SignupForm />} path="/signup" />
 
-                        <Route element={<Profile />} path="/profile" /> 
+                        <Route element={<ProfileUser />} path="/profile-user" />
+                        <Route element={<ProfileCompany />} path="/profile-company" /> 
+
 
 
 

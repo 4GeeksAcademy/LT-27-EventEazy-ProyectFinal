@@ -5,7 +5,7 @@ import CompanyDetails from "../component/companyDetails";
 
 
 
-export const Profile = () => {
+export const ProfileUser = () => {
     const { store, actions } = useContext(Context);
     const [user, setUser] = useState({ });
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const Profile = () => {
 
     return(
         <>
-        <h1>Profile</h1>
+        <h1>Profile User</h1>
         {/* <CompanyDetails /> */}
         {/* <div className="container w-50 my-5  shadow p-3 mb-5 bg-body-tertiary rounded">
             <h1> Name: {store.currentUser.name}</h1>
