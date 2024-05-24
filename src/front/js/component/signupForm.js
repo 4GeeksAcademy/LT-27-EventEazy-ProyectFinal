@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Signup= () => {
+export const SignupForm= () => {
     const { store, actions } = useContext(Context);
     const [user, setUser] = useState({name:'', email: '', password: '' });
     const [error, setError] = useState(null); // Estado para manejar errores
@@ -12,9 +12,9 @@ export const Signup= () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Sending Data");
-        const response = await actions.Signup(user);
+        const response = await actions.signup(user);
         if (response) {
-            navigate("/login");n
+            navigate("/login");
         } else {
             setError("Invalid email or password");
         }
@@ -38,7 +38,7 @@ export const Signup= () => {
                 <h1>Sign Up</h1>
                 {error && <div className="alert alert-danger">{error}</div>} 
                 <div className="form-floating mb-3">
-                <input 
+                    <input 
                         onChange={(e) => setUser({...user, name: e.target.value})} 
                         type="text" 
                         className="form-control" 
@@ -48,6 +48,9 @@ export const Signup= () => {
                         placeholder="Enter Name" 
                     />
                     <label htmlFor="inputName">Name </label>
+                </div>
+                
+                <div className="form-floating mb-3">
                     <input 
                         onChange={(e) => setUser({...user, email: e.target.value})} 
                         type="email" 

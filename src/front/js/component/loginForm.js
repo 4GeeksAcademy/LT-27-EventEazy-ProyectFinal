@@ -14,23 +14,24 @@ export const LoginForm = () => {
         console.log("Sending Data");
         const response = await actions.login(user);
         if (response) {
-            navigate("/"); // Redirigir a la página de inicio u otra página después del login
+            navigate("/profile"); // Redirigir a profile
+            console.log("a profile")
         } else {
             setError("Invalid email or password");
         }
     };
 
-    useEffect(() => {
-        if (store.currentUser) {
-            navigate("/"); // Redirigir si ya está autenticado
-        }
-    }, [store.currentUser, navigate]);
+    // useEffect(() => {
+    //     if (store.currentUser) {
+    //         navigate("/"); // tambien dirigir a profile?
+    //     }
+    // }, [store.currentUser, navigate]);
 
     return (
         <>
             <nav className="navbar navbar-light m-5">
                 <div className="ml-auto">
-                    <Link to="/sign-up">
+                    <Link to="/signup">
                         <span className="navbar-brand mb-0 h1">Sign Up</span>
                     </Link>
                 </div>

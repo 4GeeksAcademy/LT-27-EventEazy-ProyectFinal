@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -635,10 +637,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response)
 					const data = await response.json()
 					if(response.ok){
+						if (data.role === "user"){
+							Navigate("/profile");	
+						}else if (data.role === "company") {
+							Navigate("/companies")
+						}else {
+							alert(data.msg)
+						}
 						console.log(data)
 						localStorage.setItem('access_token', data.access_token);
-						setStore({currentUser: data.user})
-						console.log("login flux", currentUser)
+						// localStorage.setItem('currentUser', data.user);
+
+						setStore({currentUser: data})
+						
+						console.log("login flux",store.currentUser)
 						return true
 					}
 					console.log(store.currentUser)
@@ -675,6 +687,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 					return false;
 				}
+			},
+			isAuth: async() =>{
+				const store = getStore()
+				try {
+					const response = await fetch(`${store.apiUrl}/isauth`,{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'aplication/json',
+							'Autorization': `Bearer ${store.currentUser.access_token}`
+						}
+						
+
+					})
+					console.log(response)
+					if(response.ok){
+						return true
+					}else{
+						return false 
+					}
+					
+				} catch (error) {
+					return false
+					
+				}
+
+			},
+
+			logout: () => {
+				const store = getStore()
+				const actions = getActions()
+				console.log("logout desde flux")
+				localStorage.removeItem(store.currentUser.access_token)
+
 			}
 		},
 	};
