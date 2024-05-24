@@ -36,8 +36,8 @@ export const Profile = () => {
             //aqui creo que tendria que comparar si el current user.id == products.company.id y mapear los productos de la compañia de este perfil
             <p><span>Products: {store.product.company_id.map(()=>{})}</span></p>
         </div> */}
-        {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>}
-        <button onClick={()=>actions.logout()}>Logout</button>
+        {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>}
+        <button onClick={()=>actions.logout()}>Logout</button> */}
         </>
     )
 }

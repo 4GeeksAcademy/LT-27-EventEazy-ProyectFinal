@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint,current_app
-from api.models import db, User,Company, Category,Product,ProductOrders,
+from api.models import db, User,Company, Category,Product,ProductOrders
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -41,7 +41,7 @@ def get_company(company_id):
 
     return jsonify(one_company.serialize()), 200
 
-
+#
 @api.route('/company', methods=['POST'])
 def add_company():
     body= request.get_json()
@@ -334,8 +334,8 @@ def login():
             return jsonify({"user": user.serialize(), "role": "user", "access_token": access_token}), 200
     
     if company: 
-        pw_match = current_app.bcrypt.check_password_hash(company.password, password)
-        if pw_match:
+        # pw_match = current_app.bcrypt.check_password_hash(company.password, password)
+        # if pw_match:
             
             access_token = create_access_token(identity=email)
             return jsonify({"company": company.serialize(), "role": "company", "access_token": access_token}), 200

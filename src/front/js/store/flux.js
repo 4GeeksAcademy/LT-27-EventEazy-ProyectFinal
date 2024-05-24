@@ -622,6 +622,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}, 
 
 			login: async (user) => {
+				console.log(user)
 				const store = getStore()
 				const actions = getActions()
 				try { 
@@ -636,25 +637,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					console.log(response)
 					const data = await response.json()
+				
+					console.log(data)
 					if(response.ok){
-						if (data.role === "user"){
-							Navigate("/profile");	
-						}else if (data.role === "company") {
-							Navigate("/companies")
-						}else {
-							alert(data.msg)
-						}
-						console.log(data)
 						localStorage.setItem('access_token', data.access_token);
-						// localStorage.setItem('currentUser', data.user);
-
+						localStorage.setItem('currentUser', JSON.stringify(data));
 						setStore({currentUser: data})
 						
 						console.log("login flux",store.currentUser)
 						return true
+
+					}else {
+						console.log(store.currentUser)
+						return false
 					}
-					console.log(store.currentUser)
-					return false
+
 				} catch (error) { 
 					console.log(error)
 					return false
