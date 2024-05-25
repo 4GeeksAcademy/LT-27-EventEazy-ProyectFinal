@@ -10,8 +10,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { AddCategory } from "./component/add-category";
-import { ViewCategory } from "./component/viewCategories";
+
 
 import { CompanyForm } from "./component/companyForm";
 import { CompaniesList } from "./pages/companiesList";
@@ -25,12 +24,15 @@ import { ProductOrderForm} from "./component/productOrderForm";
 import { ProductOrdersList } from "./pages/productOrdersList";
 import { ProductOrderView } from "./pages/productOrderView";
 
-
-import { AddUser } from "./component/add-user";
-import { ViewAllUsers } from "./component/viewAllUsers";
-import { DetailsUser } from "./component/details-users";
-
 import { LoginForm } from "./component/loginForm";
+
+import { ViewCategory } from "./component/viewCategories";
+import { AddCategory } from "./component/add-category";
+import { ViewAllUsers } from "./component/viewAllUsers";
+import { AddUser } from "./component/add-user";
+import { DetailsUser } from "./component/details-users";
+import { ViewOrders } from "./component/viewOrders";
+import { AddOrder } from "./component/add-order";
 
 //create your first component
 const Layout = () => {
@@ -50,17 +52,20 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
+
                         <Route path="/categories" element={<ViewCategory />} />
                         <Route path="/add-category" element={<AddCategory />} />
-
                         <Route path="/all-users" element={<ViewAllUsers />} />
                         <Route path="/add-user" element={<AddUser />} />
                         <Route path="/more-details-user/:theid" element={<DetailsUser />} />
+                        <Route path="/orders" element={<ViewOrders />} />
+                        <Route path="/add-order" element={<AddOrder />} />
 
                         <Route element={<CompaniesList />} path="/companies" />
                         <Route element={<CompanyForm />} path="/add-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />
                         <Route element={<CompanyView />} path="/company-detail/:id" />
+                        
 
                         <Route element={<ProductsList />} path="/products" />
                         <Route element={<ProductForm />} path="/add-product" />

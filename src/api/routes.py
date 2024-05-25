@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint,current_app
-from api.models import db, User,Company, Category,Product,ProductOrders
+from api.models import db, User,Company, Category,Product,ProductOrders , Orders
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -151,6 +151,7 @@ def update_product(product_id):
  
 
     return jsonify(product.serialize()), 200
+
 # category endpoints ////////////////////////////////////////////////////
 
 @api.route('/category', methods=['GET'])
@@ -221,7 +222,7 @@ def add_product_orders():
     body= request.get_json()
     new_product_orders = ProductOrders(
         product_id=body['product_id'],
-        #order_id=body['order_id'],
+        order_id=body['order_id'],
         quantity=body['quantity'],
         price=body['price'],
     )
@@ -247,8 +248,8 @@ def delete_product_orders(product_orders_id):
 def update_product_orders(product_orders_id):
     product_orders = ProductOrders.query.filter_by(id=product_orders_id).first()
     body= request.get_json()
-    # if 'order_id' in body:
-    #     product_orders.order_id = body['order_id']
+    if 'order_id' in body:
+        product_orders.order_id = body['order_id']
     if 'product_id' in body:
         product_orders.product_id = body['product_id']
     if 'quantity' in body:
@@ -366,3 +367,66 @@ def is_auth():
         return jsonify({"msg":"User not found"}), 404
 
     return jsonify(user.serialize()), 200
+
+# orders endpoints ////////////////////////////////////////////////////
+
+@api.route('/orders', methods=['GET'])
+def get_orders():
+    order = Orders.query.all()
+    serialize_order = list(map(lambda x: x.serialize(), order))
+    
+    return jsonify(serialize_order), 200
+
+@api.route('/orders/<int:order_id>', methods=['GET'])
+def get_order_by_id(order_id):
+    single_order = Orders.query.get(order_id)
+    if single_order is None:
+        return jsonify({"msg":"Order not found"}), 404
+    serialize_one_order = single_order.serialize()
+
+    return jsonify(serialize_one_order), 200
+
+@api.route('/orders', methods=['POST'])
+def add_order():
+    print(request)
+    body= request.get_json()
+    print(body)
+    new_order = Orders(
+        user_id=body['user_id'],
+        total=body['total'],
+        begin_hour=body['begin_hour'],
+        end_hour=body['end_hour'],
+        address=body['address']
+        )
+    db.session.add(new_order)
+    db.session.commit()
+
+    return jsonify({"msg": "Order added successfully!"}), 200
+
+@api.route('/orders/<int:order_id>', methods=['PUT'])
+def modify_order(order_id):
+    order = Orders.query.get(order_id)
+    body= request.get_json()
+    if 'user_id' in body:
+        order.user_id = body['user_id']
+    if 'total' in body:
+        order.total = body['total']
+    if 'begin_hour' in body:
+        order.begin_hour = body['begin_hour']
+    if 'end_hour' in body:
+        order.end_hour = body['end_hour']
+    if 'address' in body:
+        order.address = body['address']
+    db.session.commit()
+    
+    return jsonify(order.serialize(), {"msg": "Order updated successfully"}), 200
+
+@api.route('/orders/<int:order_id>', methods=['DELETE'])
+def delete_order_id(order_id):
+    order = Orders.query.get(order_id)
+    if order:
+        db.session.delete(order)
+        db.session.commit()
+        return jsonify({"msg": "Order successfully deleted!"}), 200
+    else:
+        return jsonify({"msg": "Try again"}), 404
