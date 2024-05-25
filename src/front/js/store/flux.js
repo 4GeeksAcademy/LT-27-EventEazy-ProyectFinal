@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -24,7 +26,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			product:{},
 			productOrders:[],
 			singleProductOrder:{},
-			currentUser:{}
+			currentUser:{},
+			auth: false,
+			user_type: "",
+			user_company_id: "",
+			user_id: "",
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -726,6 +733,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 
 			login: async (user) => {
+				console.log(user)
 				const store = getStore()
 				const actions = getActions()
 				try { 
@@ -741,20 +749,96 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response)
 					const data = await response.json()
 					if(response.ok){
-						console.log(data)
+						setStore({user_type: data.role})
+						if(data.user){
+							setStore({user_id: data.user.id})
+							console.log(store.user_id,store.user_type,"desde flux")
+
+
+						}if(data.company){
+							setStore({user_company_id: data.company.id})
+							console.log(store.user_company_id,store.user_type,"desde flux")
+						}
+						setStore({auth: true})
 						localStorage.setItem('access_token', data.access_token);
-						setStore({currentUser: data})
-						return true
+						localStorage.setItem('currentUser', JSON.stringify(data));
+						setStore({currentUser: data})						
+						console.log("login flux",store.currentUser)
+						return {ok: true, role: data.role}
+
+					}else {
+						console.log(store.currentUser)
+						return {ok: false}
 					}
-					console.log(store.currentUser)
-					return false
+
 				} catch (error) { 
 					console.log(error)
-					return false
+					return {ok: false, error: error.message}
 					
 				}
 			
 			},
+			signup: async (user) => {
+				const store = getStore();
+				const actions = getActions();
+				try { 
+					console.log(store.apiUrl);
+					const response = await fetch(`${store.apiUrl}/signup`, {
+						method: 'POST',
+						body: JSON.stringify(user),
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*'
+						}
+					});
+					console.log(response);
+					const data = await response.json();
+					if (response.ok) {
+						console.log(data);
+						return true;
+					}
+			
+					return false;
+				} catch (error) { 
+					console.log(error);
+					return false;
+				}
+			},
+			isAuth: async() =>{
+				const store = getStore()
+				try {
+					const response = await fetch(`${store.apiUrl}/isauth`,{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'aplication/json',
+							'Autorization': `Bearer ${store.currentUser.access_token}`
+						}
+						
+
+					})
+					console.log(response)
+					if(response.ok){
+						return true
+					}else{
+						return false 
+					}
+					
+				} catch (error) {
+					return false
+					
+				}
+
+			},
+
+			logout: () => {
+				const store = getStore()
+				const actions = getActions()
+				console.log("logout desde flux")
+				localStorage.removeItem("access_token")
+				localStorage.removeItem("currentUser")
+
+
+			}
 		},
 	};
 };

@@ -41,7 +41,7 @@ def get_company(company_id):
 
     return jsonify(one_company.serialize()), 200
 
-
+#
 @api.route('/company', methods=['POST'])
 def add_company():
     body= request.get_json()
@@ -323,20 +323,27 @@ def login():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
+    
     user= User.query.filter_by(email=email).first()
+    company= Company.query.filter_by(email=email).first()
 
-    if user == None:
-        return jsonify({"msg": "Could not find user "}), 401
-
-    pw_match = current_app.bcrypt.check_password_hash(user.password, password)
+    if user: 
+        pw_match = current_app.bcrypt.check_password_hash(user.password, password)
+        if pw_match:
+            
+            access_token = create_access_token(identity=email)
+            return jsonify({"user": user.serialize(), "role": "user", "access_token": access_token}), 200
     
-    if not pw_match:
-        return jsonify({"msg": "Bad  password "}), 401
+    if company: 
+        # pw_match = current_app.bcrypt.check_password_hash(company.password, password)
+        # if pw_match:
+            
+            access_token = create_access_token(identity=email)
+            return jsonify({"company": company.serialize(), "role": "company", "access_token": access_token}), 200
+
+    return jsonify({"msg": "Bad  password "}), 401
     
-
-
-    access_token = create_access_token(identity=email)
-    return jsonify(user=user.serialize(), access_token=access_token)
+   
 
 
 @api.route("/signup", methods=["POST"])

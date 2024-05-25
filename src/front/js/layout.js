@@ -25,6 +25,10 @@ import { ProductOrdersList } from "./pages/productOrdersList";
 import { ProductOrderView } from "./pages/productOrderView";
 
 import { LoginForm } from "./component/loginForm";
+import { SignupUserForm } from "./component/signupUserForm";
+import { ProfileUser } from "./pages/profileUser";
+import { ProfileCompany } from "./pages/profileCompany";
+
 
 import { ViewCategory } from "./component/viewCategories";
 import { AddCategory } from "./component/add-category";
@@ -62,7 +66,7 @@ const Layout = () => {
                         <Route path="/add-order" element={<AddOrder />} />
 
                         <Route element={<CompaniesList />} path="/companies" />
-                        <Route element={<CompanyForm />} path="/add-company" />
+                        <Route element={<CompanyForm />} path="/signup-company" />
 						<Route element={<CompanyForm />} path="/edit-company/:id" />
                         <Route element={<CompanyView />} path="/company-detail/:id" />
                         
@@ -77,6 +81,13 @@ const Layout = () => {
 						<Route element={<ProductOrderForm />} path="/edit-product-order/:id" />
                         <Route element={<ProductOrderView />} path="/product-order-detail/:id" />
                         <Route element={<LoginForm />} path="/login" />
+                        <Route element={<SignupUserForm />} path="/signup-user" />
+
+                        <Route element={<ProfileUser />} path="/profile-user" />
+                        <Route element={<ProfileCompany />} path="/profile-company" /> 
+
+
+
 
 
 
