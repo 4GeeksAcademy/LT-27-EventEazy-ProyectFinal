@@ -19,7 +19,7 @@ cloudinary = "*"
 flask-admin = "*"
 typing-extensions = "*"
 flask-jwt-extended = "*"
-bcrypt = "*"
+
 flask-bcrypt = "*"
 
 [requires]

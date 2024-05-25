@@ -11,6 +11,7 @@ export const Navbar = () => {
                 </Link>
                 <Link className="nav-link active" aria-current="page" to="/all-users">Users</Link>
                 <Link className="nav-link active" aria-current="page" to="/categories">Categories</Link>
+                <Link className="nav-link active" aria-current="page" to="/orders">Orders</Link>
             </div>
         </nav>
     );
