@@ -90,7 +90,7 @@ class Product(db.Model):
 class ProductOrders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'),nullable=False) 
-    # order_id = db.Column(db.Integer, db.ForeignKey('order.id'),nullable=False) 
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False) 
     quantity = db.Column(db.Integer, unique=False, nullable=False)
     price = db.Column(db.Float, unique=False, nullable=False)
     
@@ -103,7 +103,31 @@ class ProductOrders(db.Model):
         return {
             "id": self.id,
             "product_id": self.product_id,
-            # "order_id": self.order_id ,          
+            "order_id": self.order_id,          
             "quantity": self.quantity,
             "price": self.price
+        }
+    
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    total = db.Column(db.Integer, unique=False, nullable=False)
+    begin_hour = db.Column(db.String(100), unique=False, nullable=False)
+    end_hour = db.Column(db.String(100), unique=False, nullable=False)
+    address = db.Column(db.String(250), unique=False, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='orders', lazy=True)
+    product_orders = db.relationship('ProductOrders', backref='orders', lazy=True)
+
+    def __repr__(self):
+        return f'<Orders {self.total}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "total": self.total,
+            "begin_hour": self.begin_hour,
+            "end_hour": self.end_hour,
+            "address": self.address,
+            "user_id": self.user_id
+            # do not serialize the password, its a security breach
         }
