@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const SignupForm= () => {
+export const SignupUserForm= () => {
     const { store, actions } = useContext(Context);
     const [user, setUser] = useState({name:'', email: '', password: '' });
     const [error, setError] = useState(null); // Estado para manejar errores

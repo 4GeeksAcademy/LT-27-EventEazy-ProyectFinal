@@ -25,7 +25,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			product:{},
 			productOrders:[],
 			singleProductOrder:{},
-			currentUser:{}
+			currentUser:{},
+			auth: false,
+			user_type: "",
+			user_company_id: "",
+			user_id: "",
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -637,24 +642,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					console.log(response)
 					const data = await response.json()
-				
-					console.log(data)
 					if(response.ok){
+						setStore({user_type: data.role})
+						if(data.user){
+							setStore({user_id: data.user.id})
+							console.log(store.user_id,store.user_type,"desde flux")
+
+
+						}if(data.company){
+							setStore({user_company_id: data.company.id})
+							console.log(store.user_company_id,store.user_type,"desde flux")
+						}
+						setStore({auth: true})
 						localStorage.setItem('access_token', data.access_token);
 						localStorage.setItem('currentUser', JSON.stringify(data));
-						setStore({currentUser: data})
-						
+						setStore({currentUser: data})						
 						console.log("login flux",store.currentUser)
-						return true
+						return {ok: true, role: data.role}
 
 					}else {
 						console.log(store.currentUser)
-						return false
+						return {ok: false}
 					}
 
 				} catch (error) { 
 					console.log(error)
-					return false
+					return {ok: false, error: error.message}
 					
 				}
 			
@@ -715,7 +728,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				const actions = getActions()
 				console.log("logout desde flux")
-				localStorage.removeItem(store.currentUser.access_token)
+				localStorage.removeItem("access_token")
+				localStorage.removeItem("currentUser")
+
 
 			}
 		},

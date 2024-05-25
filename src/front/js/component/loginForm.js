@@ -13,34 +13,27 @@ export const LoginForm = () => {
         e.preventDefault();
         console.log("Sending Data");
         const response = await actions.login(user);
-        //  navigate("/profile-user")
-        //  navigate("/profile-company")
-
-        //  console.log("current user", store.currentUser.role)
-        console.log("current user :", store.currentUser.role)
-        // {response.ok && store.currentUser.role === "user"? navigate("/profile-user") :  setError("Invalid email or password")}
-        //     if (response.ok) {
-        //            if(response.role === "user"){
-        //                 navigate("/profile-user"); // Redirigir a profile
-        //                 console.log("a profile User")
-        //                 }
-        //            else if (response.role === "company") {
-        //                  navigate("/profile-company"); // Redirigir a profile
-        //                  console.log("a profile Company")
-        //                }
-       
-        //     else {
-        //         setError("Invalid email or password");
-
-        //     }
-        // };
+        if(response.ok ) {     
+            if(response.role === "user"){
+                navigate("/profile-user");
+                console.log("a profile user")
+            }
+            else if(response.ok ==="company"){               
+                navigate("/profile-company")
+                console.log("a profile company")
+            }
+        }
     };
 
-    // useEffect(() => {
-    //     if (store.currentUser) {
-    //         navigate("/"); // tambien dirigir a profile?
-    //     }
-    // }, [store.currentUser, navigate]);
+    useEffect(() => {
+        if (store.currentUser) {
+            if(store.currentUser.role === "user"){
+                navigate("/profile-user")
+            } else if (store.currentUser.role === "company"){
+                navigate("profile-company")
+            }
+        }
+    }, [store.currentUser, navigate]);
 
     return (
         <>

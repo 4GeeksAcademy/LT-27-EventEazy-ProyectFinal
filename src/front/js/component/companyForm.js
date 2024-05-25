@@ -17,7 +17,7 @@ export const CompanyForm = () => {
             response = await actions.editCompany(company, params.id);
         }
         if (response) {
-            navigate("/companies");
+            navigate("/login");
         }
     }
 
@@ -36,13 +36,13 @@ export const CompanyForm = () => {
         <>
             <nav className="navbar navbar-light m-5">
                 <div className="ml-auto">
-                    <Link to="/companies">
-                        <span className="navbar-brand mb-0 h1">Back to Companies</span>
+                    <Link to="/login">
+                        <span className="navbar-brand mb-0 h1">Back to Login</span>
                     </Link>
                 </div>
             </nav>
             <form className="container" onSubmit={handleSubmit}>
-                <h1>{!params.id ? "Add a new company" : "Edit company " + params.id}</h1>
+                <h1>{!params.id ? "Signup company" : "Edit company " + params.id}</h1>
                 <div className="form-floating mb-3">
                     <input onChange={(e) => setCompany({ ...company, name: e.target.value })} type="text" className="form-control" name="name" value={company.name} id="inputName" placeholder="Enter Name" />
                     <label htmlFor="inputName">Name</label>

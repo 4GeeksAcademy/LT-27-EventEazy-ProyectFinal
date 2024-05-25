@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link} from "react-router-dom";
 import { Context } from "../store/appContext";
-import CompanyDetails from "../component/companyDetails";
+import { DetailsUser } from "../component/details-users";
 
 
 
@@ -11,6 +11,10 @@ export const ProfileUser = () => {
     const navigate = useNavigate();
     const params = useParams();
     
+    const handleSubmit = async (e) => {
+        actions.logout()
+        navigate("/")
+    };
     
     useEffect(()=>{
         //  setUser(actions.getUser(store.currentUser.id))
@@ -22,22 +26,25 @@ export const ProfileUser = () => {
         // .then((response) => response.json())
         // .then((data) => setProduct(data))
         // console.log(product)
-        
+        setUser(localStorage.getItem("currentUser"));
+        console.log(user, "desde storage")
+        {store.auth == true? navigate("/profile-user") : navigate("/")}
 
     },[])
 
     return(
         <>
         <h1>Profile User</h1>
-        {/* <CompanyDetails /> */}
+        
+        {/* <DetailsUser store.users.id={store.user_id} role={store.user-type}/> */}
         {/* <div className="container w-50 my-5  shadow p-3 mb-5 bg-body-tertiary rounded">
             <h1> Name: {store.currentUser.name}</h1>
             <h3>email: {store.currentUser.email}</h3>
             //aqui creo que tendria que comparar si el current user.id == products.company.id y mapear los productos de la compañia de este perfil
             <p><span>Products: {store.product.company_id.map(()=>{})}</span></p>
         </div> */}
-        {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>}
-        <button onClick={()=>actions.logout()}>Logout</button> */}
+         {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>} */}
+        <button onClick={()=>handleSubmit()}>Logout</button>
         </>
     )
 }

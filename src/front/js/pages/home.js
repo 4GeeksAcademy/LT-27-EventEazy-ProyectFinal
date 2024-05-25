@@ -3,10 +3,14 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { LoginForm } from "../component/loginForm";
+import { Navigate, useNavigate } from "react-router-dom";
+import { ProfileCompany } from "./profileCompany";
 
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
+
 
 	return (
 		<>
@@ -16,7 +20,8 @@ export const Home = () => {
 				<img src={rigoImageUrl} />
 			</p>
 			
-			<LoginForm />
+			{store.auth == true? navigate("/profile-company") : <LoginForm />}
+			
 		</div>
 		</>
 	);

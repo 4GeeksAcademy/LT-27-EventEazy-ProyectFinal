@@ -31,7 +31,7 @@ import { ViewAllUsers } from "./component/viewAllUsers";
 import { DetailsUser } from "./component/details-users";
 
 import { LoginForm } from "./component/loginForm";
-import { SignupForm } from "./component/signupForm";
+import { SignupUserForm } from "./component/signupUserForm";
 import { ProfileUser } from "./pages/profileUser";
 import { ProfileCompany } from "./pages/profileCompany";
 
@@ -76,7 +76,7 @@ const Layout = () => {
 						<Route element={<ProductOrderForm />} path="/edit-product-order/:id" />
                         <Route element={<ProductOrderView />} path="/product-order-detail/:id" />
                         <Route element={<LoginForm />} path="/login" />
-                        <Route element={<SignupForm />} path="/signup" />
+                        <Route element={<SignupUserForm />} path="/signup-user" />
 
                         <Route element={<ProfileUser />} path="/profile-user" />
                         <Route element={<ProfileCompany />} path="/profile-company" /> 
