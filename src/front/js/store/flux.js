@@ -18,6 +18,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			categories: [],
 			users: [],
+			orders: [],
 			companies: [],
 			company:{},
 			apiUrl: `${process.env.BACKEND_URL}/api`,
@@ -514,10 +515,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 					
 				}
-			},
-
-
-						
+			},		
 
 			// From here on goes the code for users.
 
@@ -610,21 +608,129 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 						}
 					})
-					console.log(response)
-					const data = await response.json()
-					if(response.ok){
-						console.log(data)
-						actions.getProductOrders()
-						return true
+					if (response.ok) {
+						actions.getUsers();
 					}
-					console.log(data)
-					return false
-				} catch (error) { 
-					console.log(error)
-					return false
+				} catch (error) {
 					
 				}
-			}, 
+			},
+			
+			// From here onwards goes the code for orders.
+
+			getOrders: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${store.apiUrl}/orders`)
+					console.log(response)
+					if (response.ok) {
+						const data = await response.json();
+						console.log(data);
+						setStore({orders: data})
+					}
+				} catch (error) {
+					console.log(error)
+				}
+			},
+
+			addOrder: async (order) => {
+				console.log('order:', order)
+				console.log('order:', order.user_id)
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/orders`, {
+						// mode: "no-cors",
+						method: 'POST',
+						body: JSON.stringify(
+							{
+								"address": order.address,
+								"begin_hour": order.begin_hour,
+								"end_hour": order.end_hour,
+								"user_id": order.user_id,
+								"total": order.total
+							}
+						),
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*',
+						}
+					});
+					if (response.ok) {
+						actions.getOrders();
+						return true;
+					} else {
+						console.log("Failed to add order");
+						return false;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+			},
+
+			editOrder: async (id, newOrder) => {
+				console.log('new order', newOrder)
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/orders/${id}`, {
+						// mode: "no-cors",
+						method: 'PUT',
+						body: JSON.stringify(
+							{
+								"address": newOrder.address,
+								"begin_hour": newOrder.begin_hour,
+								"end_hour": newOrder.end_hour,
+								"user_id": newOrder.user_id,
+								"total": newOrder.total,
+								// "address": "1",
+								// "begin_hour": "1",
+								// "end_hour": "1",
+								// "id": 29,
+								// "total": 1111,
+								// "user_id": 15
+							}
+						),
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*',
+						}
+					});
+					if (response.ok) {
+						actions.getOrders();
+						return true;
+					} else {
+						console.log("Failed to edit order");
+						return false;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+			},
+
+			deleteOrder: async (id) => {
+				const store = getStore();
+				const actions = getActions();
+				try {
+					const response = await fetch(`${store.apiUrl}/orders/${id}` , {
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					if (response.ok) {
+						actions.getOrders();
+					}
+				} catch (error) {
+					
+				}
+			},
+
+
+
+			
 
 			login: async (user) => {
 				console.log(user)
