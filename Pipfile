@@ -19,10 +19,6 @@ cloudinary = "*"
 flask-admin = "*"
 typing-extensions = "*"
 flask-jwt-extended = "*"
-<<<<<<< HEAD
-bcrypt = "*"
-=======
->>>>>>> ac62a376956afac9a7c8d78c54630191f770a9ef
 flask-bcrypt = "*"
 
 [requires]
