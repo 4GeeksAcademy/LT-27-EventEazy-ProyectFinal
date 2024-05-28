@@ -275,6 +275,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					if(response.ok){
 						console.log(data)
+						setStore({productByCompany: data})
 						actions.getProductByCompany()
 						return true
 					}
@@ -302,7 +303,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					if(response.ok){
 						console.log(data)
-						actions.getProducts()
+						actions.getProductByCompany()
 						return true
 					}
 					console.log(data)
@@ -318,12 +319,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const actions = getActions()
 
 				try { 
-					const response = await fetch(`${store.apiUrl}/product/${id}`, { method: 'DELETE'})
+					const response = await fetch(`${store.apiUrl}/product/${id}`, { 
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*',
+							
+						}
+					})
 					console.log(response)
-					const data = await response
+					const data = await response.json()
 					if(response.ok){
 						console.log(data)
-						actions.getProducts()
+						actions.getProductByCompany()
 						return true
 					}
 					console.log(data)

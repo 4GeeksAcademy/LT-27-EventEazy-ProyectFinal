@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 
 export const ProductForm = (props) => {
     const { store, actions } = useContext(Context);
-    const [product, setProduct] = useState({ name: '', description: '', quantity: '', price: '', category_id: '' });
+    const [product, setProduct] = useState({ name: '', description: '', quantity: '', price: '', category_id: '',company_id: userId });
     const navigate = useNavigate();
     const params = useParams();
     const [userId, setUserId] = useState("");
@@ -28,13 +28,13 @@ export const ProductForm = (props) => {
             setUserId(currentUser.id);
         }
 
-        if (params.id && userId) {
-            const selectedProduct = store.productByCompany.find(product => product.company.id == userId);
+        if (params.id ) {
+            const selectedProduct = store.productByCompany.find(product => product.id == params.id);
             if (selectedProduct) {
                 setProduct(selectedProduct);
             }
         } else {
-            setProduct({ name: '', description: '', quantity: '', price: '', category_id: '' });
+            setProduct({ name: '', description: '', quantity: '', price: '', category_id: '',company_id: userId });
         }
     }, [userId, params.id, store.productByCompany]);
 

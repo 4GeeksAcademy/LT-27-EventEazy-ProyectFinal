@@ -110,7 +110,7 @@ def get_product(product_id):
     return jsonify(one_product.serialize()), 200
 
 
-@api.route('/product', methods=['POST'])
+@api.route('/product_by_company', methods=['POST'])
 @jwt_required()
 def add_product():
     company_id = get_jwt_identity()
@@ -423,7 +423,7 @@ def add_order():
     db.session.add(new_order)
     db.session.commit()
 
-    return jsonify({"msg": "Order added successfully!"}), 200
+    return jsonify(new_order.serialize(),{"msg": "Order added successfully!"}), 200
 
 @api.route('/orders/<int:order_id>', methods=['PUT'])
 def modify_order(order_id):
