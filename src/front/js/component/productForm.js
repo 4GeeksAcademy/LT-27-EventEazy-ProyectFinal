@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const ProductForm = () => {
+export const ProductForm = (props) => {
     const { store, actions } = useContext(Context);
-    const [product, setProduct] = useState({ name: '', description: '', quantity: '', price: '',category_id: '',company_id: '' });
+    const [product, setProduct] = useState({ name: '', description: '', quantity: '', price: '', category_id: '' });
     const navigate = useNavigate();
     const params = useParams();
+    const [userId, setUserId] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,27 +18,32 @@ export const ProductForm = () => {
             response = await actions.editProduct(product, params.id);
         }
         if (response) {
-            navigate("/products");
+            navigate("/product-by-company");
         }
     }
 
     useEffect(() => {
-        if (params.id) {
-            const selectedProduct = store.products.find(product => product.id == params.id);
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (currentUser) {
+            setUserId(currentUser.id);
+        }
+
+        if (params.id && userId) {
+            const selectedProduct = store.productByCompany.find(product => product.company.id == userId);
             if (selectedProduct) {
                 setProduct(selectedProduct);
             }
         } else {
-            setProduct({ name: '', description: '', quantity: '', price: '',category_id: '',company_id: ''});
+            setProduct({ name: '', description: '', quantity: '', price: '', category_id: '' });
         }
-    }, [params, store.products]);
+    }, [userId, params.id, store.productByCompany]);
 
     return (
         <>
             <nav className="navbar navbar-light m-5">
                 <div className="ml-auto">
-                    <Link to="/products">
-                        <span className="navbar-brand mb-0 h1">Back to Products</span>
+                    <Link to="/product-by-company">
+                        <span className="navbar-brand mb-0 h1">Back To My Products</span>
                     </Link>
                 </div>
             </nav>
@@ -60,34 +66,13 @@ export const ProductForm = () => {
                     <label htmlFor="inputPrice">Price</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setProduct({ ...product, company_id: e.target.value })} value={product.company_id} name="company_id" type="number" className="form-control" id="inputCompany_id" placeholder="Enter Company id" />
-                    <label htmlFor="inputCategory_id">Company_id</label>
-                </div>
-                <div className="form-floating mb-3">
-                    <input onChange={(e) => setProduct({ ...product, category_id: e.target.value })} value={product.category_id} name="category_id" type="number" className="form-control" id="inputcategory_id" placeholder="Enter Category id" />
+                    <input onChange={(e) => setProduct({ ...product, category_id: e.target.value })} value={product.category_id} name="category_id" type="number" className="form-control" id="inputCategory_id" placeholder="Enter Category id" />
                     <label htmlFor="inputCategory_id">Category_id</label>
                 </div>
-                {/* <div className="form-floating mb-3">
-                    <select
-                        onChange={(e) => setProduct({ ...product, category_id: e.target.value })}
-                        value={product.category_id}
-                        name="category_id"
-                        className="form-select"
-                        id="inputCategory_id"
-                        aria-label="Select category"
-                    >
-                        <option value="">Select Category</option>
-                        <option value="1">Decor</option>
-                        <option value="2">Furniture</option>
-                        <option value="3">Catering</option>
-                    </select>
-                    <label htmlFor="inputCategory_id">Category</label>
-                </div> */}
                 <div className="">
                     <button type="submit" className="btn btn-primary">Save</button>
                 </div>
             </form>
-            <h1></h1>
         </>
-    )
+    );
 }

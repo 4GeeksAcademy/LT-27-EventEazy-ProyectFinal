@@ -30,8 +30,8 @@ const ProductDetails = () => {
             <h3> Description: {store.product.email}</h3>
             <p>Quantity: {store.product.quantity}</p>
             <p>Price: {store.product.price}</p>
-            <h3>Company: {store.product.category_id}</h3>
-            <h3>Category: {store.products.company_id }</h3>
+            <h3>Category: {store.product.category_id}</h3>
+            <h3>Company: {store.products.company_id }</h3>
             
         </div>
         </>
