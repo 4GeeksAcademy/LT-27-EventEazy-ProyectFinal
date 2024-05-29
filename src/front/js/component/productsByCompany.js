@@ -26,7 +26,7 @@ const ProductsByCompany = (props) => {
             </div>
             <div className="container-fluid m-3 p-3 ">
                     <h1 className="text-center text-secondary">Products</h1>
-                <div className="d-flex flex-wrap">
+                <div className="row flex-row flex-nowrap " style={{overflowX:'auto'}}>
                     {store.productByCompany && 
                         store.productByCompany.length > 0 &&
                         store.productByCompany.map((product) => {
