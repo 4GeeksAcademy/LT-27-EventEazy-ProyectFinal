@@ -93,6 +93,15 @@ def get_products():
 
     return jsonify(results), 200
 
+@api.route('/product_by_company', methods=['GET'])
+@jwt_required()
+def get_products_by_company():
+    company_id = get_jwt_identity()
+    all_products = Product.query.filter_by(company_id=company_id)
+    results = list(map(lambda elemento: elemento.serialize() , all_products))
+
+    return jsonify(results), 200
+
 
 @api.route('/product/<int:product_id>', methods=['GET'])
 def get_product(product_id):
@@ -101,8 +110,11 @@ def get_product(product_id):
     return jsonify(one_product.serialize()), 200
 
 
-@api.route('/product', methods=['POST'])
+@api.route('/product_by_company', methods=['POST'])
+@jwt_required()
 def add_product():
+    company_id = get_jwt_identity()
+    print(company_id)
     body= request.get_json()
     new_product = Product(
         name=body['name'],
@@ -110,7 +122,7 @@ def add_product():
         quantity=body['quantity'],
         price=body['price'],
         category_id=body['category_id'],
-        company_id=body['company_id']
+        company_id=company_id
     )
     db.session.add(new_product)
     db.session.commit()
@@ -338,7 +350,7 @@ def login():
         # pw_match = current_app.bcrypt.check_password_hash(company.password, password)
         # if pw_match:
             
-            access_token = create_access_token(identity=email)
+            access_token = create_access_token(identity=company.id)
             return jsonify({"company": company.serialize(), "role": "company", "access_token": access_token}), 200
 
     return jsonify({"msg": "Bad  password "}), 401
@@ -365,15 +377,18 @@ def signup():
     return jsonify(new_user.serialize())
 
 
-@api.route('/isauth', methods=['GET'])
+@api.route('/isauth/', methods=['GET'])
 @jwt_required()
-def is_auth():
+def is_auth(user_type):
     email = get_jwt_identity()
-    user = User.query.filter_by(email=email).first()
-    if user is None:
+    if user_type == "user": 
+        result = User.query.filter_by(email=email).first()
+    if user_type == "company": 
+        result = Company.query.filter_by(email=email).first()
+    if result is None:
         return jsonify({"msg":"User not found"}), 404
 
-    return jsonify(user.serialize()), 200
+    return jsonify(result.serialize()), 200
 
 # orders endpoints ////////////////////////////////////////////////////
 
@@ -408,7 +423,7 @@ def add_order():
     db.session.add(new_order)
     db.session.commit()
 
-    return jsonify({"msg": "Order added successfully!"}), 200
+    return jsonify(new_order.serialize(),{"msg": "Order added successfully!"}), 200
 
 @api.route('/orders/<int:order_id>', methods=['PUT'])
 def modify_order(order_id):
@@ -437,3 +452,4 @@ def delete_order_id(order_id):
         return jsonify({"msg": "Order successfully deleted!"}), 200
     else:
         return jsonify({"msg": "Try again"}), 404
+

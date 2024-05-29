@@ -26,11 +26,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			product:{},
 			productOrders:[],
 			singleProductOrder:{},
-			currentUser:{},
-			auth: false,
-			user_type: "",
-			user_company_id: "",
-			user_id: "",
+			currentUser: {},
+			userType: "",
+			userCompanyId: "",
+			userId: "",
+			productByCompany: {}
 
 		},
 		actions: {
@@ -237,25 +237,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({product: data})
 				})
 			},
+			getProductByCompany: (companyId) => {
+				const store = getStore();
+				fetch(`${store.apiUrl}/product_by_company`, {
+					method: 'GET',
+					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+					setStore({ productByCompany: data });
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+			},
+			
 			addProduct: async (product) => {
 				const store = getStore()
 				const actions = getActions()
 				try { 
 					console.log(store.apiUrl)
-					const response = await fetch(`${store.apiUrl}/product`,
+					const response = await fetch(`${store.apiUrl}/product_by_company`,
 					 {
 						method: 'POST',
 						body: JSON.stringify(product),
 						headers: {
 							'Content-Type': 'application/json',
-							'Access-Control-Allow-Origin': '*'
+							'Access-Control-Allow-Origin': '*',
+							"Authorization": `Bearer ${localStorage.getItem("access_token")}`
 						}
 					})
 					console.log(response)
 					const data = await response.json()
 					if(response.ok){
 						console.log(data)
-						actions.getProducts()
+						setStore({productByCompany: data})
+						actions.getProductByCompany()
 						return true
 					}
 					console.log(data)
@@ -282,7 +303,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					if(response.ok){
 						console.log(data)
-						actions.getProducts()
+						actions.getProductByCompany()
 						return true
 					}
 					console.log(data)
@@ -298,12 +319,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const actions = getActions()
 
 				try { 
-					const response = await fetch(`${store.apiUrl}/product/${id}`, { method: 'DELETE'})
+					const response = await fetch(`${store.apiUrl}/product/${id}`, { 
+						method: 'DELETE',
+						headers: {
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*',
+							
+						}
+					})
 					console.log(response)
-					const data = await response
+					const data = await response.json()
 					if(response.ok){
 						console.log(data)
-						actions.getProducts()
+						actions.getProductByCompany()
 						return true
 					}
 					console.log(data)
@@ -748,21 +776,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					console.log(response)
 					const data = await response.json()
+					console.log(data)
 					if(response.ok){
-						setStore({user_type: data.role})
+						setStore({userType: data.role})
 						if(data.user){
-							setStore({user_id: data.user.id})
-							console.log(store.user_id,store.user_type,"desde flux")
+							setStore({userId: data.user.id})
+							console.log(store.userId,store.userType,"desde flux")
+							const currentUser = data.user
+							currentUser.role = "user"
+							localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
 
 
 						}if(data.company){
-							setStore({user_company_id: data.company.id})
-							console.log(store.user_company_id,store.user_type,"desde flux")
+							setStore({userCompanyId: data.company.id})
+							console.log(store.userCompanyId,store.userType,"desde flux")
+							const currentUser = data.company
+							currentUser.role = "company"
+							localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
 						}
 						setStore({auth: true})
 						localStorage.setItem('access_token', data.access_token);
-						localStorage.setItem('currentUser', JSON.stringify(data));
-						setStore({currentUser: data})						
+						setStore({currentUser: data.user})						
 						console.log("login flux",store.currentUser)
 						return {ok: true, role: data.role}
 
@@ -836,6 +872,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("logout desde flux")
 				localStorage.removeItem("access_token")
 				localStorage.removeItem("currentUser")
+				setStore({auth: false})
+
 
 
 			}

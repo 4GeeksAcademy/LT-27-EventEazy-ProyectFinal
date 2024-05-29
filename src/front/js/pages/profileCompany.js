@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link, Navigate} from "react-router-dom";
 import { Context } from "../store/appContext";
 import CompanyDetails from "../component/companyDetails";
+import ProductsByCompany from "../component/productsByCompany";
 
 
 
@@ -16,6 +17,7 @@ export const ProfileCompany= () => {
         navigate("/")
     };
     
+    // setUser(localStorage.getItem("currenUser"))
     
     useEffect(()=>{
         //  setUser(actions.getUser(store.currentUser.id))
@@ -27,15 +29,37 @@ export const ProfileCompany= () => {
         // .then((response) => response.json())
         // .then((data) => setProduct(data))
         // console.log(product)
-        setUser(localStorage.getItem("currentUser"));
-        console.log(user, "desde storage")
-        
+        setUser(JSON.parse(localStorage.getItem("currentUser")));
+        // setUser(store.currentUser)
+        // console.log(user, "desde storage")
+        // const companyProducts = store.products.find((product)=>{product.company_id == store.user_id })
 
     },[])
 
     return(
         <>
-        <h1>Profile Company</h1>
+        <h1>Profile Company :{user.id}</h1>
+        {store.userType}
+        {/* {store.products.company_id == store.user_id} */}
+        {user.email}
+        
+        
+        <Link to={"/products-by-company" } className="btn btn-outline-primary" >
+            <span>Products company Id</span>
+        </Link>
+        <Link to={"/Orders" } className="btn btn-outline-primary" >
+            <span>orders company Id</span>
+        </Link>
+        <Link to={"/product-orders" } className="btn btn-outline-primary" >
+            <span>Product orders company Id</span>
+        </Link>
+                 
+                                            
+        
+
+
+        
+
         {/* {store.auth === true? Navigate("/profile-company") : Navigate("/login")} */}
 
         {/* <CompanyDetails /> */}
@@ -47,6 +71,7 @@ export const ProfileCompany= () => {
         </div> */}
         {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>} */}
         <button onClick={()=>handleSubmit()}>Logout</button>
+        <ProductsByCompany company_id={user.id} />
         </>
     )
 }

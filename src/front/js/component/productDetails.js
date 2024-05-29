@@ -27,11 +27,11 @@ const ProductDetails = () => {
         <> 
         <div className="container w-50 my-5  shadow p-3 mb-5 bg-body-tertiary rounded">
             <h1> Name : {store.product.name}</h1>
-            <h3> Description: {store.product.email}</h3>
+            <h3> Description: {store.product.description}</h3>
             <p>Quantity: {store.product.quantity}</p>
             <p>Price: {store.product.price}</p>
-            <h3>Company: {store.product.category_id}</h3>
-            <h3>Category: {store.products.company_id }</h3>
+            <h3>Category: {store.product.category_id}</h3>
+            
             
         </div>
         </>

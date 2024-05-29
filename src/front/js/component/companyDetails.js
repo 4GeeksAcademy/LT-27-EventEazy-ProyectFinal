@@ -28,6 +28,8 @@ const CompanyDetails = () => {
         <div className="container w-50 my-5  shadow p-3 mb-5 bg-body-tertiary rounded">
             <h1> Name : {store.company.name}</h1>
             <h3> Email: {store.company.email}</h3>
+            <h3> id: {store.company.id}</h3>
+
             
         </div>
         </>
