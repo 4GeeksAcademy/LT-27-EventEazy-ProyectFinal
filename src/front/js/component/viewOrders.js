@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import GetCoordinates from "./getCoordinates";
 
 export const ViewOrders = () => {
 
@@ -116,6 +117,7 @@ export const ViewOrders = () => {
                                                     <button className="btn btn-warning ms-2" onClick={() => handleEditOrder(order)}>Edit</button>
                                                 </>
                                             )}
+                                            < GetCoordinates />
                                         </div>
                                     </div>
                                 </div>
