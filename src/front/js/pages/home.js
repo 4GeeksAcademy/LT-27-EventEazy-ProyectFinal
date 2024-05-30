@@ -5,6 +5,7 @@ import "../../styles/home.css";
 import { LoginForm } from "../component/loginForm";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ProfileCompany } from "./profileCompany";
+import  Products  from "../component/products"
 
 
 export const Home = () => {
@@ -17,7 +18,7 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			
 			
-			{store.auth == true? navigate("/profile-company") : <LoginForm />}
+			{store.auth == true?   <Products /> : <LoginForm />}
 			
 		</div>
 		</>

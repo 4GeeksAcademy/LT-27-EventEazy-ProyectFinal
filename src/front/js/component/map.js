@@ -10,9 +10,9 @@ const Map = () => {
     };
 
     const handleSearch = () => {
-        // Hacer la solicitud a la API de Google Maps
-        const apiKey = 'AIzaSyC_ohBk2Zlu4SnUzA6Dc2EFYmNRLAPexAs';
-        const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
+        
+        const apiKey = 'AIzaSyARUt5zLfQ2SFYVNM9WNRhykS65nf0RiSU';
+        const url = `https://www.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`;
 
         fetch(url)
             .then(response => response.json())

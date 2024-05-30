@@ -16,7 +16,7 @@ export const Navbar = () => {
                 <Link className="nav-link active" aria-current="page" to="/all-users">Users</Link>
                 <Link className="nav-link active" aria-current="page" to="/categories">Categories</Link>
                 <Link className="nav-link active" aria-current="page" to="/orders">Orders</Link>
-                {store.userType == "company"? <Link className="nav-link active" aria-current="page" to="/profile-company">Profile Company</Link> : <Link className="nav-link active" aria-current="page" to="/profile-user">Profile User</Link>} 
+                {store.auth == true && store.userType == "company"? <Link className="nav-link active" aria-current="page" to="/profile-company">Profile Company</Link> : <Link className="nav-link active" aria-current="page" to="/profile-user">Profile User</Link>} 
                         
 
             </div>

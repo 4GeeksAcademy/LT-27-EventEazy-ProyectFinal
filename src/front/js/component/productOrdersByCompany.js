@@ -14,8 +14,8 @@ const ProductOrdersByCompany = (props) => {
         console.log("se cargo productOrdersByCompany")
         console.log(store.productByCompany)
         actions.getProductOrderByCompany(props.company_id)
-        console.log(store.productByCompany)
-        const result = ProductOrderByCompany.filter(company_id = company)
+        console.log(store.getProductOrderByCompany)
+        // const result = ProductOrderByCompany.filter(company_id = company)
         console.log(result)
 
     },[])
@@ -53,8 +53,7 @@ const ProductOrdersByCompany = (props) => {
                                                     </small>
                                                 </p>
                                                 <p className="card-text"><span className="border-bottom">Price:{productOrder.price}</span></p>
-                                                {/* <p className="card-text"><span className="border-bottom">{product.category_id}</span></p> */}
-                                                {/* <p className="card-text"><span className="border-bottom">Company Id:{product.company_id}</span></p> */}
+                                                
 
 
                                             </div>
