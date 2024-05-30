@@ -30,7 +30,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userType: "",
 			userCompanyId: "",
 			userId: "",
-			productByCompany: {}
+			productByCompany: {},
+			productOrderByCompany:{}
 
 		},
 		actions: {
@@ -467,6 +468,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then((data)=>{console.log(data)
 					setStore({singleProductOrder: data})
 				})
+			},
+			getProductOrderByCompany: (companyId) => {
+				const store = getStore();
+				fetch(`${store.apiUrl}/product_orders_by_company`, {
+					method: 'GET',
+					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+					setStore({ productOrderByCompany: data });
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
 			},
 			addProductOrder: async (productOrder) => {
 				const store = getStore()
