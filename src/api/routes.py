@@ -228,9 +228,21 @@ def get_product_order(product_orders_id):
 
     return jsonify(one_product_orders.serialize()), 200
 
+@api.route('/product-orders-by-company', methods=['GET'])
+@jwt_required()
+def get_product_order_by_company():
+    company_id = get_jwt_identity()
+    product_orders = ProductOrders.query.filter_by(company_id = company_id)
+    results = list(map(lambda elemento: elemento.serialize() , product_orders))
+    
+
+    return jsonify(results), 200
+
 
 @api.route('/product-orders', methods=['POST'])
+# @jwt_required()
 def add_product_orders():
+    # company_id= get_jwt_identity()
     body= request.get_json()
     new_product_orders = ProductOrders(
         product_id=body['product_id'],
@@ -423,7 +435,7 @@ def add_order():
     db.session.add(new_order)
     db.session.commit()
 
-    return jsonify(new_order.serialize(),{"msg": "Order added successfully!"}), 200
+    return jsonify({"msg": "Order added successfully!"}), 200
 
 @api.route('/orders/<int:order_id>', methods=['PUT'])
 def modify_order(order_id):

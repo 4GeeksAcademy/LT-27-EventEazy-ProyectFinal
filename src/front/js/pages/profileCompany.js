@@ -3,6 +3,9 @@ import { useNavigate, useParams, Link, Navigate} from "react-router-dom";
 import { Context } from "../store/appContext";
 import CompanyDetails from "../component/companyDetails";
 import ProductsByCompany from "../component/productsByCompany";
+import ProductOrdersByCompany from "../component/productOrdersByCompany";
+import OrdersByCompany from "../component/ordersByCompany";
+
 
 
 
@@ -72,6 +75,9 @@ export const ProfileCompany= () => {
         {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>} */}
         <button onClick={()=>handleSubmit()}>Logout</button>
         <ProductsByCompany company_id={user.id} />
+        <OrdersByCompany company_id={user.id} />
+        {/* <ProductOrdersByCompany company_id={user.id} /> */}
+
         </>
     )
 }
