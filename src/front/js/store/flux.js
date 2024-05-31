@@ -471,7 +471,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getProductOrderByCompany: (companyId) => {
 				const store = getStore();
-				fetch(`${store.apiUrl}/product_orders_by_company`, {
+				fetch(`${store.apiUrl}/product-orders-company/${companyId}`, {
 					method: 'GET',
 					headers: {
 						"Authorization": `Bearer ${localStorage.getItem("access_token")}`,

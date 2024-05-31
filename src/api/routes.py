@@ -228,12 +228,12 @@ def get_product_order(product_orders_id):
 
     return jsonify(one_product_orders.serialize()), 200
 
-@api.route('/product-orders-by-company', methods=['GET'])
-@jwt_required()
-def get_product_order_by_company():
-    company_id = get_jwt_identity()
-    product_orders = ProductOrders.query.filter_by(company_id = company_id)
-    results = list(map(lambda elemento: elemento.serialize() , product_orders))
+@api.route('/product-orders-company/<int:company_id>', methods=['GET'])
+# @jwt_required()
+def get_product_order_by_company(company_id):
+
+    product_orders = ProductOrders.query.join(Product).filter(Product.company_id == company_id).all()
+    results = [order.serialize() for order in product_orders]
     
 
     return jsonify(results), 200

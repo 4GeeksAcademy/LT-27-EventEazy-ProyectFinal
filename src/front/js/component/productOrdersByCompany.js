@@ -8,15 +8,15 @@ import "../../styles/companies.css";
 const ProductOrdersByCompany = (props) => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
-    const [company,SetCompany] = useState(props.company_id)
+    const [company,SetCompany] = useState()
 
     useEffect(()=>{
-        console.log("se cargo productOrdersByCompany")
-        console.log(store.productByCompany)
+        console.log("se cargo productOrderByCompany")
+        console.log(store.productOrderByCompany)
         actions.getProductOrderByCompany(props.company_id)
-        console.log(store.getProductOrderByCompany)
+        console.log(store.productOrderByCompany)
         // const result = ProductOrderByCompany.filter(company_id = company)
-        console.log(result)
+        // console.log(result)
 
     },[])
 
@@ -27,9 +27,9 @@ const ProductOrdersByCompany = (props) => {
                     <button className="btn btn-primary ">Add new product</button>
                 </Link>
             </div> */}
-            <div className="container-fluid m-3 p-3 ">
+             <div className="container-fluid m-3 p-3 ">
                     <h1 className="text-center text-secondary">Product Orders</h1>
-                <div className="row flex-row flex-nowrap " style={{overflowX:'auto'}}>
+               {/* <div className="row flex-row flex-nowrap " style={{overflowX:'auto'}}>
                     {store.productOrderByCompany && 
                         store.productOrderByCompany.length > 0 &&
                         store.productOrderByCompany.map((productOrder) => {
@@ -52,10 +52,8 @@ const ProductOrdersByCompany = (props) => {
                                                         <span className="border-bottom">Quantity:{productOrder.quantity}</span>
                                                     </small>
                                                 </p>
-                                                <p className="card-text"><span className="border-bottom">Price:{productOrder.price}</span></p>
+                                                <p className="card-text"><span className="border-bottom">Price:{productOrder.price}</span></p> 
                                                 
-
-
                                             </div>
                                         </div>
                                         
@@ -75,7 +73,17 @@ const ProductOrdersByCompany = (props) => {
                             )
 
                         })}
-                </div>
+                </div>*/}
+            </div>
+            <div classname="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" classname="btn-check" name="confirmada" id="confirmada" autocomplete="off" checked />
+                <label classname="btn btn-outline-primary" for="confirmada">Confirmada</label>
+
+                <input type="radio" classname="btn-check" name="enProceso" id="enProceso" autocomplete="off" />
+                <label classname="btn btn-outline-primary" for="enProceso">En proceso</label>
+
+                <input type="radio" classname="btn-check" name="completada" id="completada" autocomplete="off" />
+                <label classname="btn btn-outline-primary" for="completada">Completada</label>
             </div>
         </>
     );

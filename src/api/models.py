@@ -25,7 +25,8 @@ class Company(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     products = db.relationship('Product', backref='company', lazy=True)
-    product_orders = db.relationship('ProductOrders', backref='company', lazy=True)
+    orders = db.relationship('Orders', backref='company', lazy=True)
+
 
 
     
@@ -95,7 +96,8 @@ class ProductOrders(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False) 
     quantity = db.Column(db.Integer, unique=False, nullable=False)
     price = db.Column(db.Float, unique=False, nullable=False)
-    company_id= db.Column(db.Integer, db.ForeignKey('company.id'), nullable=False)
+    
+    
     
     
 
@@ -109,7 +111,8 @@ class ProductOrders(db.Model):
             "order_id": self.order_id,          
             "quantity": self.quantity,
             "price": self.price,
-            "company_id": self.company_id
+            
+            
         }
     
 class Orders(db.Model):
@@ -121,6 +124,7 @@ class Orders(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref='orders', lazy=True)
     product_orders = db.relationship('ProductOrders', backref='orders', lazy=True)
+    company_id= db.Column(db.Integer, db.ForeignKey('company.id'))
 
     def __repr__(self):
         return f'<Orders {self.total}>'
@@ -132,6 +136,7 @@ class Orders(db.Model):
             "begin_hour": self.begin_hour,
             "end_hour": self.end_hour,
             "address": self.address,
-            "user_id": self.user_id
+            "user_id": self.user_id,
+            "company_id": self.company_id
             # do not serialize the password, its a security breach
         }

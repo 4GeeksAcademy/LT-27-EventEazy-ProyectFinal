@@ -76,7 +76,7 @@ export const ProfileCompany= () => {
         <button onClick={()=>handleSubmit()}>Logout</button>
         <ProductsByCompany company_id={user.id} />
         <OrdersByCompany company_id={user.id} />
-        {/* <ProductOrdersByCompany company_id={user.id} /> */}
+        <ProductOrdersByCompany company_id={user.id} />
 
         </>
     )
