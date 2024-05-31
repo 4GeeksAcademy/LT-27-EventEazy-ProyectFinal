@@ -62,7 +62,7 @@ const ProductOrders = () => {
 					                            <span>More Detaills</span>
 					                        </Link>
                                             <div >
-                                                <i role="button" onClick={() => navigate("/edit-productOrder/" + productOrder.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
+                                                <i role="button" onClick={() => navigate("/edit-product-order/" + productOrder.id)} className="bi bi-pen-fill fs-5 rounded-circle" ></i>
                                             </div>
                                             <div>
                                                 <i role="button" onClick={() => actions.deleteProductOrder(productOrder.id)} className="bi bi-trash-fill fs-5 rounded-circle"></i>
