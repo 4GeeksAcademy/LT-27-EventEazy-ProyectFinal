@@ -96,10 +96,7 @@ class ProductOrders(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False) 
     quantity = db.Column(db.Integer, unique=False, nullable=False)
     price = db.Column(db.Float, unique=False, nullable=False)
-    
-    
-    
-    
+    status = db.Column(db.String(50), nullable=False, default='iniciada')  
 
     def __repr__(self):
         return f'<Product {self.product_id}>'
@@ -111,8 +108,11 @@ class ProductOrders(db.Model):
             "order_id": self.order_id,          
             "quantity": self.quantity,
             "price": self.price,
-            
-            
+            "status": self.status,
+            "company_id": self.product.company_id,
+            "user_id": self.order.user.id     
+
+
         }
     
 class Orders(db.Model):
@@ -127,7 +127,7 @@ class Orders(db.Model):
     company_id= db.Column(db.Integer, db.ForeignKey('company.id'))
 
     def __repr__(self):
-        return f'<Orders {self.total}>'
+        return f'<Orders {self.id} hola>'
 
     def serialize(self):
         return {

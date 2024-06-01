@@ -31,7 +31,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userCompanyId: "",
 			userId: "",
 			productByCompany: {},
-			productOrderByCompany:{}
+			productOrderByCompany:{},
+			isAuth: false
+
 
 		},
 		actions: {
@@ -470,6 +472,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 			},
 			getProductOrderByCompany: (companyId) => {
+				console.log("dentro de getProductOrderByCompany", companyId)
 				const store = getStore();
 				fetch(`${store.apiUrl}/product-orders-company/${companyId}`, {
 					method: 'GET',
@@ -796,6 +799,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response)
 					const data = await response.json()
 					console.log(data)
+					setStore({isAuth: true})
 					if(response.ok){
 						setStore({userType: data.role})
 						if(data.user){

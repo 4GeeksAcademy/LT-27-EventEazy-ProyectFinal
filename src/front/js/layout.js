@@ -38,6 +38,7 @@ import { AddUser } from "./component/add-user";
 import { DetailsUser } from "./component/details-users";
 import { ViewOrders } from "./component/viewOrders";
 import { AddOrder } from "./component/add-order";
+import  {CompanyOrders}  from "./pages/companyOrders";
 
 //create your first component
 const Layout = () => {
@@ -88,6 +89,9 @@ const Layout = () => {
 
                         <Route element={<ProfileUser />} path="/profile-user" />
                         <Route element={<ProfileCompany />} path="/profile-company" /> 
+                        <Route element={<CompanyOrders />} path="/company-orders" /> 
+
+
 
 
 

@@ -285,6 +285,18 @@ def update_product_orders(product_orders_id):
  
 
     return jsonify(product_orders.serialize()), 200
+
+@api.route('/product-orders-status/<int:product_orders_id>', methods=['PUT'])
+def update_product_orders_status(product_orders_id):
+    product_order = ProductOrders.query.filter_by(id=product_orders_id).first()
+    body= request.get_json()
+    if 'status' in body:
+        product_order.status = body['status']
+    
+    db.session.commit()
+ 
+
+    return jsonify(product_order.serialize()), 200
     
 # user endpoints ////////////////////////////////////////////////////
 
@@ -355,7 +367,7 @@ def login():
         pw_match = current_app.bcrypt.check_password_hash(user.password, password)
         if pw_match:
             
-            access_token = create_access_token(identity=email)
+            access_token = create_access_token(identity=user.id)
             return jsonify({"user": user.serialize(), "role": "user", "access_token": access_token}), 200
     
     if company: 
@@ -419,6 +431,15 @@ def get_order_by_id(order_id):
     serialize_one_order = single_order.serialize()
 
     return jsonify(serialize_one_order), 200
+
+@api.route('/orders_by_user', methods=['GET'])
+@jwt_required()
+def get_orders_by_user():
+    user_id = get_jwt_identity()
+    all_orders = Orders.query.filter_by(user_id=user_id)
+    results = list(map(lambda elemento: elemento.serialize() , all_orders))
+
+    return jsonify(results), 200
 
 @api.route('/orders', methods=['POST'])
 def add_order():

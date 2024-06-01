@@ -51,7 +51,7 @@ export const ProfileUser = () => {
         </div> */}
          {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>} */}
         <button onClick={()=>handleSubmit()}>Logout</button>
-        <Map />
+        
         </>
     )
 }
