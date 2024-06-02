@@ -23,6 +23,9 @@ export const Navbar = () => {
                     </svg>
                     <span className="badge bg-primary">{totalProductsInCart}</span>
                 </Link>
+                {store.auth == true && store.userType == "company"? <Link className="nav-link active" aria-current="page" to="/profile-company">Profile Company</Link> : <Link className="nav-link active" aria-current="page" to="/profile-user">Profile User</Link>} 
+                        
+
             </div>
         </nav>
     );

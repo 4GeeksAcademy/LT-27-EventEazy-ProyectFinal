@@ -5,6 +5,7 @@ import "../../styles/home.css";
 import { LoginForm } from "../component/loginForm";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ProfileCompany } from "./profileCompany";
+import  Products  from "../component/products"
 
 
 export const Home = () => {
@@ -15,12 +16,9 @@ export const Home = () => {
 	return (
 		<>
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
 			
-			{store.auth == true? navigate("/profile-company") : <LoginForm />}
+			
+			{store.auth == true?   <Products /> : <LoginForm />}
 			
 		</div>
 		</>

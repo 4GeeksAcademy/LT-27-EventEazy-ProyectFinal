@@ -23,6 +23,7 @@ import { ProductView } from "./pages/productView";
 import { ProductOrderForm} from "./component/productOrderForm";
 import { ProductOrdersList } from "./pages/productOrdersList";
 import { ProductOrderView } from "./pages/productOrderView";
+import  ProductsByCompany  from "./component/productsByCompany"
 
 import { LoginForm } from "./component/loginForm";
 import { SignupUserForm } from "./component/signupUserForm";
@@ -74,6 +75,8 @@ const Layout = () => {
                         
 
                         <Route element={<ProductsList />} path="/products" />
+                        <Route element={<ProductsByCompany />} path="/product-by-company" />
+
                         <Route element={<ProductForm />} path="/add-product" />
 						<Route element={<ProductForm />} path="/edit-product/:id" />
                         <Route element={<ProductView />} path="/product-detail/:id" />

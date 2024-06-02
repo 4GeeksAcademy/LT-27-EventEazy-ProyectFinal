@@ -13,12 +13,13 @@ export const LoginForm = () => {
         e.preventDefault();
         console.log("Sending Data");
         const response = await actions.login(user);
+        console.log(response)
         if(response.ok ) {     
             if(response.role === "user"){
                 navigate("/profile-user");
                 console.log("a profile user")
             }
-            else if(response.ok ==="company"){               
+            else if(response.role ==="company"){               
                 navigate("/profile-company")
                 console.log("a profile company")
             }

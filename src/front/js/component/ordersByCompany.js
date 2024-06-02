@@ -1,11 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, Link} from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
-import GetCoordinates from "./getCoordinates";
+import rigoImage from "../../img/rigo-baby.jpg";
+import "../../styles/companies.css";
 
-export const ViewOrders = () => {
 
+const OrdersByCompany = (props) => {
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate()
+
     const [editedOrder, setEditedOrder] = useState({ user_id: '', total: '', begin_hour: '', end_hour: '', address: '' });
     const [editedIndex, setEditedIndex] = useState(null);
 
@@ -28,17 +31,30 @@ export const ViewOrders = () => {
             alert("Failed to update order");
         }
     };
-    
-    useEffect(() => {
-        actions.getOrders();
-    }, []);
+
+
+    const filterOrdersByCompany = store.orders.filter(order => order.company_id == props.company_id)
+
+    useEffect(()=>{
+        
+        actions.getOrders()
+        console.log(store.orders)
+
+    },[])
 
     return (
         <>
-            <div className="container mt-5">
+            <div className="">
+                <Link to="/profile-company">
+                    <button className="btn btn-primary ">Add new Order</button>
+                </Link>
+            </div>
+            <div className="container-fluid m-3 p-3 ">
+                    <h1 className="text-center text-secondary">My Orders</h1>
+                    <div className="container mt-5">
                 <h1 className="title-orders mt-5">Orders</h1>
                 <div className="row">
-                    {store.orders.map(order => (
+                    {filterOrdersByCompany.map(order => (
                         <div key={order.id} className="card-order col-md-4 w-50">
                             <div className="card my-3">
                                 <div className="row g-0">
@@ -112,7 +128,6 @@ export const ViewOrders = () => {
                                                     <button className="btn btn-warning ms-2" onClick={() => handleEditOrder(order)}>Edit</button>
                                                 </>
                                             )}
-                                            < GetCoordinates />
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +136,9 @@ export const ViewOrders = () => {
                     ))}
                 </div>
             </div>
+            </div>
         </>
     );
 };
+
+export default OrdersByCompany;
