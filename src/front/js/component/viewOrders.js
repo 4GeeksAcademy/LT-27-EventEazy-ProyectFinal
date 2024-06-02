@@ -35,11 +35,6 @@ export const ViewOrders = () => {
 
     return (
         <>
-            <div className="button-add-order text-end">
-                <Link to="/add-order">
-                    <button type="button" className="btn btn-success">Add new order</button>
-                </Link>
-            </div>
             <div className="container mt-5">
                 <h1 className="title-orders mt-5">Orders</h1>
                 <div className="row">

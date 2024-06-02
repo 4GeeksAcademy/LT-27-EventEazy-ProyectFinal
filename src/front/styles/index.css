@@ -1,3 +1,22 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+
+.sticky-summary {
+    background: rgb(212, 209, 209);
+    position: sticky;
+    top: 15%; 
+    height: 50vh;
+    overflow-y: auto; 
+}
+
+.summary {
+    padding: 20px;
+}
+
+.keep-buying {
+    position: sticky;
+    top: 18%; 
+    height: 50vh;
+    position: absolute;
+}

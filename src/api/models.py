@@ -29,8 +29,6 @@ class Company(db.Model):
 
 
 
-    
-
     def __repr__(self):
         return f'<Company {self.name}>'
 
@@ -41,16 +39,11 @@ class Company(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
-
-
-    
-
     
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     products = db.relationship('Product', backref='category', lazy=True)
-
 
     def __repr__(self):
         return f'<Category {self.name}>'
@@ -72,8 +65,6 @@ class Product(db.Model):
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'),nullable=False)
     product_orders = db.relationship('ProductOrders', backref='product', lazy=True)
 
-    
-
     def __repr__(self):
         return f'<Product {self.name}>'
     
@@ -89,7 +80,6 @@ class Product(db.Model):
             
         }
     
-
 class ProductOrders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'),nullable=False) 
