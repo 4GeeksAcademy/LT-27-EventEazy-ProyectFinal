@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 
 export const ViewOrders = () => {
 
@@ -34,11 +33,6 @@ export const ViewOrders = () => {
 
     return (
         <>
-            <div className="button-add-order text-end">
-                <Link to="/add-order">
-                    <button type="button" className="btn btn-success">Add new order</button>
-                </Link>
-            </div>
             <div className="container mt-5">
                 <h1 className="title-orders mt-5">Orders</h1>
                 <div className="row">
