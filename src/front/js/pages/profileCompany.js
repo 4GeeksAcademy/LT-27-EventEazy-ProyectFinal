@@ -50,12 +50,12 @@ export const ProfileCompany= () => {
         <Link to={"/products-by-company" } className="btn btn-outline-primary" >
             <span>Products company Id</span>
         </Link>
-        <Link to={"/Orders" } className="btn btn-outline-primary" >
-            <span>orders company Id</span>
+        <Link to={"/company-orders" } className="btn btn-outline-primary" >
+            <span>My Orders</span>
         </Link>
-        <Link to={"/product-orders" } className="btn btn-outline-primary" >
+        {/* <Link to={"/product-orders" } className="btn btn-outline-primary" >
             <span>Product orders company Id</span>
-        </Link>
+        </Link> */}
                  
                                             
         
@@ -63,7 +63,7 @@ export const ProfileCompany= () => {
 
         
 
-        {/* {store.auth === true? Navigate("/profile-company") : Navigate("/login")} */}
+        {/* {store.auth === true? Navigate("/profile-company") : Navigate("/company-orders")} */}
 
         {/* <CompanyDetails /> */}
         {/* <div className="container w-50 my-5  shadow p-3 mb-5 bg-body-tertiary rounded">
@@ -77,6 +77,7 @@ export const ProfileCompany= () => {
         <ProductsByCompany company_id={user.id} />
         <OrdersByCompany company_id={user.id} />
         <ProductOrdersByCompany company_id={user.id} />
+        
 
         </>
     )

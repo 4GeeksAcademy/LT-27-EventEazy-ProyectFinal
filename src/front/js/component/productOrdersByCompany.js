@@ -33,7 +33,7 @@ const ProductOrdersByCompany = (props) => {
 
         fetch(`${process.env.BACKEND_URL}/api/product-orders-status/${user.id}`, requestOptions)
         .then((response) => response.text())
-        .then((result) => console.log(result))
+        .then((result) => store.orderStatus(result))
         .catch((error) => console.error(error));
     }
 
@@ -111,7 +111,7 @@ const ProductOrdersByCompany = (props) => {
                                             </div>
                                             <div>
                                                 <button onClick={() => updateOrderStatus("En proceso")}>Procesar</button>
-                                                <button onClick={() => updateOrderStatus("Confirmada")}>Confirmar</button>
+                                                <button onClick={() => updateOrderStatus("Completada")}>Completada</button>
 
                                             </div>
                                         </div>

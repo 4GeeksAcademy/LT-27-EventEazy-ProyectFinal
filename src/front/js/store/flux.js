@@ -32,7 +32,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userId: "",
 			productByCompany: {},
 			productOrderByCompany:{},
-			isAuth: false
+			isAuth: false,
+			orderStatus: "Confirmada",
+			ordersByUser: [{}]
 
 
 		},
@@ -681,6 +683,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log(error)
 				}
+			},
+			getOrdersByUser: (companyId) => {
+				const store = getStore();
+				fetch(`${store.apiUrl}/orders_by_user`, {
+					method: 'GET',
+					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log("orders",data);
+					setStore({ ordersByUser: data });
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
 			},
 
 			addOrder: async (order) => {
