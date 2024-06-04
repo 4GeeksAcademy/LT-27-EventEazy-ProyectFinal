@@ -34,7 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			productOrderByCompany:{},
 			isAuth: false,
 			orderStatus: "Confirmada",
-			ordersByUser: [{}]
+			ordersByUser: []
 
 
 		},
@@ -684,7 +684,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
-			getOrdersByUser: (companyId) => {
+			getOrdersByUser: () => {
 				const store = getStore();
 				fetch(`${store.apiUrl}/orders_by_user`, {
 					method: 'GET',
@@ -695,8 +695,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 				.then((response) => response.json())
 				.then((data) => {
-					console.log("orders",data);
+					console.log("data",data);
 					setStore({ ordersByUser: data });
+					console.log("ordersbyuser",ordersByUser)
 				})
 				.catch((error) => {
 					console.error('Error:', error);
