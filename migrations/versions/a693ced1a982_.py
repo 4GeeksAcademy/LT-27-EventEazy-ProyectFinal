@@ -1,5 +1,10 @@
 """empty message
 
+<<<<<<< HEAD:migrations/versions/a693ced1a982_.py
+Revision ID: a693ced1a982
+Revises: 
+Create Date: 2024-06-01 02:58:21.323991
+=======
 <<<<<<<< HEAD:migrations/versions/c24d088f0fc8_.py
 Revision ID: c24d088f0fc8
 Revises: 
@@ -9,6 +14,7 @@ Revision ID: e6b42133f96d
 Revises: 
 Create Date: 2024-05-31 00:59:01.733741
 >>>>>>>> Develop:migrations/versions/e6b42133f96d_.py
+>>>>>>> 508f4a0fa85dc3cae2656332a44257cfd1caa346:migrations/versions/e6b42133f96d_.py
 
 """
 from alembic import op
@@ -16,11 +22,15 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
+<<<<<<< HEAD:migrations/versions/a693ced1a982_.py
+revision = 'a693ced1a982'
+=======
 <<<<<<<< HEAD:migrations/versions/c24d088f0fc8_.py
 revision = 'c24d088f0fc8'
 ========
 revision = 'e6b42133f96d'
 >>>>>>>> Develop:migrations/versions/e6b42133f96d_.py
+>>>>>>> 508f4a0fa85dc3cae2656332a44257cfd1caa346:migrations/versions/e6b42133f96d_.py
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -83,6 +93,7 @@ def upgrade():
     sa.Column('order_id', sa.Integer(), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('price', sa.Float(), nullable=False),
+    sa.Column('status', sa.String(length=50), nullable=False),
     sa.ForeignKeyConstraint(['order_id'], ['orders.id'], ),
     sa.ForeignKeyConstraint(['product_id'], ['product.id'], ),
     sa.PrimaryKeyConstraint('id')

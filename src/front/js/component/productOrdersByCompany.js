@@ -9,16 +9,58 @@ const ProductOrdersByCompany = (props) => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate()
     const [company,SetCompany] = useState()
+    console.log("props",props)
+
+    function updateOrderStatus(status){
+        let user =JSON.parse( localStorage.getItem("currentUser"));
+        console.log("user", user)
+        console.log("user.id", user.id)
+        console.log("status", status)
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+
+        const raw = JSON.stringify({
+        "status": status
+        });
+
+            const requestOptions = {
+            method: "PUT",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+            };
+
+        fetch(`${process.env.BACKEND_URL}/api/product-orders-status/${user.id}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => store.orderStatus(result))
+        .catch((error) => console.error(error));
+    }
 
     useEffect(()=>{
         console.log("se cargo productOrderByCompany")
         console.log(store.productOrderByCompany)
-        actions.getProductOrderByCompany(props.company_id)
+        console.log("props",props)
+
+        console.log("props.company",props.company_id)
+        let user =JSON.parse( localStorage.getItem("currentUser"));
+        console.log("user", user)
+        console.log("user.id", user.id)
+
+        
+
+
+        actions.getProductOrderByCompany(user.id)
+        
+        
         console.log(store.productOrderByCompany)
         // const result = ProductOrderByCompany.filter(company_id = company)
         // console.log(result)
+        
 
     },[])
+
+
 
     return (
         <>
@@ -29,7 +71,7 @@ const ProductOrdersByCompany = (props) => {
             </div> */}
              <div className="container-fluid m-3 p-3 ">
                     <h1 className="text-center text-secondary">Product Orders</h1>
-               {/* <div className="row flex-row flex-nowrap " style={{overflowX:'auto'}}>
+               <div className="row flex-row flex-nowrap " style={{overflowX:'auto'}}>
                     {store.productOrderByCompany && 
                         store.productOrderByCompany.length > 0 &&
                         store.productOrderByCompany.map((productOrder) => {
@@ -67,13 +109,18 @@ const ProductOrdersByCompany = (props) => {
                                             <div>
                                                 <i role="button" onClick={() => actions.deleteProductOrder(productOrder.id)} className="bi bi-trash-fill fs-5 rounded-circle"></i>
                                             </div>
+                                            <div>
+                                                <button onClick={() => updateOrderStatus("En proceso")}>Procesar</button>
+                                                <button onClick={() => updateOrderStatus("Completada")}>Completada</button>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             )
 
                         })}
-                </div>*/}
+                </div>
             </div>
             <div classname="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" classname="btn-check" name="confirmada" id="confirmada" autocomplete="off" checked />

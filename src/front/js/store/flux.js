@@ -33,7 +33,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userCompanyId: "",
 			userId: "",
 			productByCompany: {},
-			productOrderByCompany:{}
+			productOrderByCompany:{},
+			isAuth: false,
+			orderStatus: "Confirmada",
+			ordersByUser: []
+
 
 		},
 		actions: {
@@ -472,6 +476,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 			},
 			getProductOrderByCompany: (companyId) => {
+				console.log("dentro de getProductOrderByCompany", companyId)
 				const store = getStore();
 				fetch(`${store.apiUrl}/product-orders-company/${companyId}`, {
 					method: 'GET',
@@ -681,6 +686,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+			getOrdersByUser: () => {
+				const store = getStore();
+				fetch(`${store.apiUrl}/orders_by_user`, {
+					method: 'GET',
+					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+						'Content-Type': 'application/json'
+					}
+				})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log("data",data);
+					setStore({ ordersByUser: data });
+					console.log("ordersbyuser",ordersByUser)
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+			},
 
 			addOrder: async (order) => {
 				console.log('order:', order)
@@ -798,6 +822,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response)
 					const data = await response.json()
 					console.log(data)
+					setStore({isAuth: true})
 					if(response.ok){
 						setStore({userType: data.role})
 						if(data.user){

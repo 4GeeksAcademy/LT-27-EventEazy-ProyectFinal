@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link} from "react-router-dom";
 import { Context } from "../store/appContext";
 import { DetailsUser } from "../component/details-users";
 import Map  from "../component/map"
+import OrdersByUser from "../component/ordersByUser";
 
 
 
@@ -51,7 +52,11 @@ export const ProfileUser = () => {
         </div> */}
          {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>} */}
         <button onClick={()=>handleSubmit()}>Logout</button>
-        <Map />
+       
+        <Link to={"/orders-user" } className="btn btn-outline-primary" >
+            <span>My Orders</span>
+        </Link>
+        
         </>
     )
 }

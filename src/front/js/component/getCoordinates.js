@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-
-const GetCoordinates = () =>{
-    const [city,setCity] = useState("")
-    const APIkey=`c85e2d41169e22f5b2aeacd548d9d3e7`
-    const [lat,setLat] = useState()
-    const [lon,setLon] = useState() 
+const GetCoordinates = ({ orderID, onCityChange }) => {
+    const [city, setCity] = useState(() => {
+        const storedCity = localStorage.getItem(`city_${orderID}`);
+        return storedCity ? storedCity : "";
+    });
+    const [lat, setLat] = useState(null);
+    const [lon, setLon] = useState(null);
+    const APIkey = "c85e2d41169e22f5b2aeacd548d9d3e7";
 
     useEffect(() => {
-        if (city ) {
+        if (city) {
             const fetchCoordinates = async () => {
                 try {
                     const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIkey}`);
                     const data = await response.json();
                     if (data.length > 0) {
-                        console.log(data)
+                        console.log(data);
                         setLat(data[0].lat);
                         setLon(data[0].lon);
                     } else {
-                        console.error('No se encontraron resultados para la ciudad y el país proporcionados.');
+                        console.error('No se encontraron resultados para la ciudad proporcionada.');
                     }
                 } catch (error) {
                     console.error('Error al buscar las coordenadas:', error);
@@ -27,34 +29,29 @@ const GetCoordinates = () =>{
 
             fetchCoordinates();
         }
-    }, [city,  APIkey]);
+    }, [city, APIkey, orderID]);
 
     const handleCityChange = (e) => {
-        setCity(e.target.value);
+        const newCity = e.target.value;
+        setCity(newCity);
+        localStorage.setItem(`city_${orderID}`, newCity);
+        onCityChange(orderID, newCity);
     };
-
 
     return (
         <div>
-            
+            <span>
+                <b>CIUDAD</b>
+                <p className="card-city">{city}</p>
+            </span>
             <div>
-                <label htmlFor="city">Ciudad:</label>
+                <label htmlFor={`city_${orderID}`}>Ciudad:</label>
                 <input
                     type="text"
-                    id="city"
-                    value={city.capitalize}
+                    id={`city_${orderID}`}
+                    value={city}
                     onChange={handleCityChange}
                 />
-            </div>
-            <div>
-                <button onClick={() => {
-                    if (city ) {
-                        setLat("");
-                        setLon("");
-                    } else {
-                        alert('Por favor, ingresa  la ciudad ');
-                    }
-                }}>Buscar</button>
             </div>
             <div>
                 <p>Latitud: {lat}</p>
@@ -64,7 +61,4 @@ const GetCoordinates = () =>{
     );
 };
 
-
-
-
-export default GetCoordinates
+export default GetCoordinates;
