@@ -38,6 +38,7 @@ import { AddUser } from "./component/add-user";
 import { DetailsUser } from "./component/details-users";
 import { ViewOrders } from "./component/viewOrders";
 import { AddOrder } from "./component/add-order";
+import { CartDetails } from "./component/cart-details";
 import  {CompanyOrders}  from "./pages/companyOrders";
 import OrdersByUser from "./component/ordersByUser";
 import {OrdersByUserView} from "./pages/ordersByUserView"
@@ -68,6 +69,7 @@ const Layout = () => {
                         <Route path="/more-details-user/:theid" element={<DetailsUser />} />
                         <Route path="/orders" element={<ViewOrders />} />
                         <Route path="/add-order" element={<AddOrder />} />
+                        <Route path="/cart-details" element={<CartDetails />} />
 
                         <Route element={<CompaniesList />} path="/companies" />
                         <Route element={<CompanyForm />} path="/signup-company" />

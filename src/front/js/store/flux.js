@@ -16,6 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
+			cart: JSON.parse(localStorage.getItem('cart')) || [],
+			subtotal: 0,
 			categories: [],
 			users: [],
 			orders: [],
@@ -920,11 +922,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
+			},
+
+			// From here onwards goes the code for cart.
+
+			addToCart: (product) => {
+                const store = getStore();
+                const itIsAlreadyAdded = store.cart.some(item => item.id === product.id);
+            
+                if (itIsAlreadyAdded) {
+                    alert('The product is already in the cart!');
+                } else {
+                    const cart = [...store.cart, { ...product, quantity: 1 }];
+                    setStore({ cart });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                }
+            },
+
+            getCart: () => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                setStore({ cart });
+            },
+
+            clearCart: () => {
+                setStore({ cart: [] });
+                localStorage.removeItem('cart');
+            },
+
+            removeProductFromCart: (productId) => {
+                const store = getStore();
+                const cart = store.cart.filter(product => product.id !== productId);
+                setStore({ cart });
+                localStorage.setItem('cart', JSON.stringify(cart));
+            },
+
+            updateProductQuantity: (productId, quantity) => {
+                const store = getStore();
+                const cart = store.cart.map(product => 
+                    product.id === productId ? { ...product, quantity: Math.max(product.quantity + quantity, 1) } : product
+                );
+                setStore({ cart });
+                localStorage.setItem('cart', JSON.stringify(cart));
+            },
+
+            calculateSubtotal: () => {
+				const store = getStore();
+				const subtotal = store.cart.reduce((acc, product) => acc + product.price * product.quantity, 0);
+				setStore({ subtotal });
+				localStorage.setItem('subtotal', subtotal);
 			}
-		},
-	};
+        },
+    };
 };
-
-
 
 export default getState;
