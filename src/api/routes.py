@@ -8,9 +8,12 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
-
+from flask_jwt_extended import create_refresh_token
+from datetime import timedelta
 
 api = Blueprint('api', __name__)
+
+api.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=5)
 
 # Allow CORS requests to this API
 CORS(api)
@@ -374,7 +377,8 @@ def login():
         # pw_match = current_app.bcrypt.check_password_hash(company.password, password)
         # if pw_match:
             
-            access_token = create_access_token(identity=company.id)
+            access_token = create_access_token(identity=company.id fresh=True)
+            refresh_token = create_refresh_token(user.id)
             return jsonify({"company": company.serialize(), "role": "company", "access_token": access_token}), 200
 
     return jsonify({"msg": "Bad  password "}), 401
