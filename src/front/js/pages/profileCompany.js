@@ -74,9 +74,9 @@ export const ProfileCompany= () => {
         </div> */}
         {/* {!localStorage.getItem('access_token')? <h1>Enviar a login</h1> : <div><h1>muestra perfil</h1><h1>{store.currentUser.id}</h1></div>} */}
         <button onClick={()=>handleSubmit()}>Logout</button>
-        <ProductsByCompany company_id={user.id} />
-        <OrdersByCompany company_id={user.id} />
-        <ProductOrdersByCompany company_id={user.id} />
+        {/* <ProductsByCompany company_id={user.id} /> */}
+        {/* <OrdersByCompany company_id={user.id} /> */}
+        {/* <ProductOrdersByCompany company_id={user.id} /> */}
         
 
         </>

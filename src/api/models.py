@@ -100,7 +100,7 @@ class ProductOrders(db.Model):
             "price": self.price,
             "status": self.status,
             "company_id": self.product.company_id,
-            "user_id": self.order.user.id     
+            "user_id": self.orders.user.id     
 
 
         }

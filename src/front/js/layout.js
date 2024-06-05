@@ -94,7 +94,8 @@ const Layout = () => {
                         <Route element={<ProfileUser />} path="/profile-user" />
                         <Route element={<ProfileCompany />} path="/profile-company" /> 
                         <Route element={<CompanyOrders />} path="/company-orders" />
-                        <Route element={<OrdersByUserView />} path="/orders-user" /> 
+                        <Route element={<OrdersByUserView />} path="/orders-user" />
+                        <Route element={<ProductsByCompany />} path="/products-by-company" /> 
 
 
 
