@@ -825,6 +825,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({isAuth: true})
 					if(response.ok){
 						setStore({userType: data.role})
+						setStore({isAuth: true})
 						if(data.user){
 							setStore({userId: data.user.id})
 							console.log(store.userId,store.userType,"desde flux")

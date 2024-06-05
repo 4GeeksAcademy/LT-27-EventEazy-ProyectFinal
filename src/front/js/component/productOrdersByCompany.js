@@ -33,7 +33,7 @@ const ProductOrdersByCompany = (props) => {
 
         fetch(`${process.env.BACKEND_URL}/api/product-orders-status/${user.id}`, requestOptions)
         .then((response) => response.text())
-        .then((result) => store.orderStatus(result))
+        .then((result) => console.log(result))
         .catch((error) => console.error(error));
     }
 
@@ -110,8 +110,8 @@ const ProductOrdersByCompany = (props) => {
                                                 <i role="button" onClick={() => actions.deleteProductOrder(productOrder.id)} className="bi bi-trash-fill fs-5 rounded-circle"></i>
                                             </div>
                                             <div>
-                                                <button onClick={() => updateOrderStatus("En proceso")}>Procesar</button>
-                                                <button onClick={() => updateOrderStatus("Completada")}>Completada</button>
+                                                <button className="btn btn-outline-primary" onClick={() => updateOrderStatus("En proceso")}>Procesar</button>
+                                                <button className="btn btn-outline-primary"  onClick={() => updateOrderStatus("Completada")}>Completada</button>
 
                                             </div>
                                         </div>
@@ -121,16 +121,6 @@ const ProductOrdersByCompany = (props) => {
 
                         })}
                 </div>
-            </div>
-            <div classname="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" classname="btn-check" name="confirmada" id="confirmada" autocomplete="off" checked />
-                <label classname="btn btn-outline-primary" for="confirmada">Confirmada</label>
-
-                <input type="radio" classname="btn-check" name="enProceso" id="enProceso" autocomplete="off" />
-                <label classname="btn btn-outline-primary" for="enProceso">En proceso</label>
-
-                <input type="radio" classname="btn-check" name="completada" id="completada" autocomplete="off" />
-                <label classname="btn btn-outline-primary" for="completada">Completada</label>
             </div>
         </>
     );

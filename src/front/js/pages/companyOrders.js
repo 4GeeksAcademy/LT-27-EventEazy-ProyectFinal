@@ -21,7 +21,7 @@ export const CompanyOrders = () => {
 	return (
 		<>
 		<h1>Vistas orders</h1>
-        <ProductOrdersByCompany company_id={45} />
+        <ProductOrdersByCompany  />
 
 		</>
 	);
