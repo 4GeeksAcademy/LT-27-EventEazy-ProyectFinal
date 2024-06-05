@@ -23,8 +23,18 @@ export const Navbar = () => {
                     </svg>
                     <span className="badge bg-primary">{totalProductsInCart}</span>
                 </Link>
-                {store.auth == true && store.userType == "company"? <Link className="nav-link active" aria-current="page" to="/profile-company">Profile Company</Link> : <Link className="nav-link active" aria-current="page" to="/profile-user">Profile User</Link>} 
-                        
+                {/* {store.auth == true && store.userType == "company"? <Link className="nav-link active" aria-current="page" to="/profile-company">Profile Company</Link> : <Link className="nav-link active" aria-current="page" to="/profile-user">Profile User</Link>}  */}
+                {store.auth && store.userType === "company" && (
+                    <Link to="/profile-company" className="btn btn-outline-primary">
+                        <span>Profile Company</span>
+                    </Link>
+                )} 
+                {store.auth && store.userType === "user" && (
+                    <Link to="/profile-user" className="btn btn-outline-primary">
+                        <span>Profile User</span>
+                    </Link>
+                )} 
+                       
 
             </div>
         </nav>

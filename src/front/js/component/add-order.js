@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import GetCoordinates from "./getCoordinates";
 
 export const AddOrder = () => {
 	const { store, actions } = useContext(Context);
@@ -92,6 +93,8 @@ export const AddOrder = () => {
 										</svg>
 									</button>
 								</div>
+								
+
 							</div>
 						</div>
 					</div>
