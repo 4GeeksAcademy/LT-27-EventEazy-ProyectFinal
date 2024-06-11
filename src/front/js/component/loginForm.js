@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import "../../styles/login.css"
 
 export const LoginForm = () => {
     const { store, actions } = useContext(Context);
     const [user, setUser] = useState({ email: '', password: '' });
-    const [error, setError] = useState(null); // Estado para manejar errores
+    const [error, setError] = useState(null); 
 
     const navigate = useNavigate();
 
@@ -38,26 +39,26 @@ export const LoginForm = () => {
 
     return (
         <>
-            <nav className="navbar navbar-light m-5 w-25 ">
+            <nav className="login-navbar navbar  m-5 w-25" style={{background: "transparent"}}>
                 <div className="ml-auto ">
-                    <Link to="/signup-user" className="btn btn-dark " >
-                        <span className="navbar-brand mb-0 h1 text-white">Signup User</span>
+                    <Link to="/signup-user" className="btn  " >
+                        <span className="login-navbar-brand navbar-brand mb-0 h1 text-white">Signup User</span>
                     </Link>
                 </div>
-                <div className="ml-auto">
-                    <Link to="/signup-company" className="btn btn-dark " >
-                        <span className="navbar-brand mb-0 h1 text-white">Signup Company</span>
+                <div className="ml-auto ">
+                    <Link to="/signup-company" className="btn " >
+                        <span className="login-navbar-brand navbar-brand mb-0 h1 text-white">Signup Company</span>
                     </Link>
                 </div>
             </nav>
-            <form className="container" onSubmit={handleSubmit}>
+            <form className="login-container container" onSubmit={handleSubmit}>
                 <h1>Login</h1>
                 {error && <div className="alert alert-danger">{error}</div>}
-                <div className="form-floating mb-3">
+                <div className="login-form-floating form-floating mb-3">
                     <input
                         onChange={(e) => setUser({ ...user, email: e.target.value })}
                         type="email"
-                        className="form-control"
+                        className="login-form-control form-control"
                         name="email"
                         value={user.email}
                         id="inputEmail"
@@ -65,11 +66,11 @@ export const LoginForm = () => {
                     />
                     <label htmlFor="inputEmail">Email </label>
                 </div>
-                <div className="form-floating mb-3">
+                <div className="login-form-floating form-floating mb-3">
                     <input
                         onChange={(e) => setUser({ ...user, password: e.target.value })}
                         type="password"
-                        className="form-control"
+                        className="login-form-control form-control"
                         name="password"
                         value={user.password}
                         id="inputPassword"
@@ -77,8 +78,8 @@ export const LoginForm = () => {
                     />
                     <label htmlFor="inputPassword">Password</label>
                 </div>
-                <div className="">
-                    <button type="submit" className="btn btn-primary">Login</button>
+                <div className="login-submit">
+                    <button type="submit" className="login-btn btn btn-primary">Login</button>
                 </div>
             </form>
         </>

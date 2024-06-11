@@ -1,0 +1,60 @@
+.blog-main-page {
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  
+  .blog-main-page header {
+    margin-bottom: 40px;
+  }
+  
+  .blog-post h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .blog-post p {
+    margin-bottom: 10px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .popular-categories ul {
+    padding-left: 0;
+  }
+  
+  .popular-categories li {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  
+  .popular-categories a {
+    color: #00ADB5;
+    text-decoration: none;
+  }
+  
+  .popular-categories a:hover {
+    text-decoration: underline;
+    
+  }
+  
+  .newsletter input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+.btn{
+    background-color: #575757;
+
+  }
+
+  .btn:hover{
+    background-color: #00ADB5;
+
+  }
+
+  

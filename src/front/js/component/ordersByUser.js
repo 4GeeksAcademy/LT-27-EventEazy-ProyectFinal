@@ -7,7 +7,7 @@ const OrdersByUser = () => {
 
     useEffect(() => {
         actions.getOrdersByUser();
-    }, [actions]);
+    }, []);
 
     const handleCityChange = (orderID, newCity) => {
         // Puedes realizar aquí cualquier lógica necesaria

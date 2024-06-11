@@ -1,0 +1,63 @@
+
+.login-container {
+    background-color: #f5f5f5; /* Fondo gris claro */
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px; /* Ancho del formulario */
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container .form-floating input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #393e46; /* Línea de fondo gris oscuro */
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.login-container .form-floating label {
+    color: #393e46; /* Color de texto gris oscuro */
+}
+
+
+.login-container .btn-primary {
+    background-color: #00adb5; /* Color de fondo turquesa */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.login-container .btn-primary:hover {
+    background-color: #393e46;
+}
+
+
+.login-container .navbar {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.login-container .navbar .btn {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    color: #393e46; 
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.login-container .navbar .btn:hover {
+    color: #00adb5; 
+}

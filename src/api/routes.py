@@ -374,7 +374,7 @@ def login():
         pw_match = current_app.bcrypt.check_password_hash(user.password, password)
         if pw_match:
             
-            access_token = create_access_token(identity=user.id)
+            access_token = create_access_token(identity=user.id) #{identity={email:user.email,role:user.role}}
             return jsonify({"user": user.serialize(), "role": "user", "access_token": access_token}), 200
     
     if company: 
@@ -409,7 +409,7 @@ def signup():
     return jsonify(new_user.serialize())
 
 
-@api.route('/isauth/', methods=['GET'])
+@api.route('/isauth', methods=['GET'])
 @jwt_required()
 def is_auth(user_type):
     email = get_jwt_identity()

@@ -43,6 +43,13 @@ import  {CompanyOrders}  from "./pages/companyOrders";
 import OrdersByUser from "./component/ordersByUser";
 import {OrdersByUserView} from "./pages/ordersByUserView"
 
+import { ContactUs } from "./pages/contact-us";
+import { AboutUs } from "./pages/about-us";
+import { Blog } from "./pages/blog";
+
+
+
+
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -96,6 +103,13 @@ const Layout = () => {
                         <Route element={<CompanyOrders />} path="/company-orders" />
                         <Route element={<OrdersByUserView />} path="/orders-user" />
                         <Route element={<ProductsByCompany />} path="/products-by-company" /> 
+
+                        <Route element={<AboutUs />} path="/about-us" />
+                        <Route element={<Blog />} path="/blog" /> 
+                        <Route element={<ContactUs />} path="/contact-us" /> 
+
+
+
 
 
 

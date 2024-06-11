@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import "../../styles/signup-company.css"; 
 
 export const CompanyForm = () => {
     const { store, actions } = useContext(Context);
@@ -34,29 +35,29 @@ export const CompanyForm = () => {
 
     return (
         <>
-            <nav className="navbar navbar-light m-5">
+            <nav className="company-navbar navbar navbar-light m-5" style={{background: "transparent", }}>
                 <div className="ml-auto">
                     <Link to="/login">
-                        <span className="navbar-brand mb-0 h1">Back to Login</span>
+                        <span className="company-navbar-brand navbar-brand mb-0 h1" style={{fontSize: "50px"}}> Login</span>
                     </Link>
                 </div>
             </nav>
-            <form className="container" onSubmit={handleSubmit}>
+            <form className="company-container container" onSubmit={handleSubmit}>
                 <h1>{!params.id ? "Signup company" : "Edit company " + params.id}</h1>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setCompany({ ...company, name: e.target.value })} type="text" className="form-control" name="name" value={company.name} id="inputName" placeholder="Enter Name" />
+                    <input onChange={(e) => setCompany({ ...company, name: e.target.value })} type="text" className="company-form-control form-control" name="name" value={company.name} id="inputName" placeholder="Enter Name" />
                     <label htmlFor="inputName">Name</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setCompany({ ...company, email: e.target.value })} type="email" className="form-control" name="email" value={company.email} id="inputEmail" placeholder="Enter Email" />
+                    <input onChange={(e) => setCompany({ ...company, email: e.target.value })} type="email" className="company-form-control form-control" name="email" value={company.email} id="inputEmail" placeholder="Enter Email" />
                     <label htmlFor="inputEmail">Email</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input onChange={(e) => setCompany({ ...company, password: e.target.value })} value={company.password} name="password" type="password" className="form-control" id="inputPassword" placeholder="Enter Password" />
+                    <input onChange={(e) => setCompany({ ...company, password: e.target.value })} value={company.password} name="password" type="password" className="company-form-control form-control" id="inputPassword" placeholder="Enter Password" />
                     <label htmlFor="inputPassword">Password</label>
                 </div>
                 <div className="">
-                    <button type="submit" className="btn btn-primary">Save</button>
+                    <button type="submit" className="company-btn btn btn-primary">Save</button>
                 </div>
             </form>
             <h1></h1>
