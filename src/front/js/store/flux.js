@@ -844,6 +844,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						}
 						setStore({auth: true})
+						console.log("authTrue",store.auth)
 						localStorage.setItem('access_token', data.access_token);
 						setStore({currentUser: data.user})						
 						console.log("login flux",store.currentUser)
@@ -920,6 +921,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("access_token")
 				localStorage.removeItem("currentUser")
 				setStore({auth: false})
+				console.log("authFalse",store.auth)
 
 
 
