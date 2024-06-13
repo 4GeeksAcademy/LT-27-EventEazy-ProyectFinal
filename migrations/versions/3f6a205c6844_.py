@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/c24d088f0fc8_.py
-Revision ID: c24d088f0fc8
+Revision ID: 3f6a205c6844
 Revises: 
-Create Date: 2024-05-27 19:45:22.003007
-========
-Revision ID: e6b42133f96d
-Revises: 
-Create Date: 2024-05-31 00:59:01.733741
->>>>>>>> Develop:migrations/versions/e6b42133f96d_.py
+Create Date: 2024-06-12 08:54:58.320816
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/c24d088f0fc8_.py
-revision = 'c24d088f0fc8'
-========
-revision = 'e6b42133f96d'
->>>>>>>> Develop:migrations/versions/e6b42133f96d_.py
+revision = '3f6a205c6844'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -57,11 +47,8 @@ def upgrade():
     sa.Column('end_hour', sa.String(length=100), nullable=False),
     sa.Column('address', sa.String(length=250), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-<<<<<<<< HEAD:migrations/versions/c24d088f0fc8_.py
-========
     sa.Column('company_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['company_id'], ['company.id'], ),
->>>>>>>> Develop:migrations/versions/e6b42133f96d_.py
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

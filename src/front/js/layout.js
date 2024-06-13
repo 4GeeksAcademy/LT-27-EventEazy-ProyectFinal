@@ -39,6 +39,7 @@ import { DetailsUser } from "./component/details-users";
 import { ViewOrders } from "./component/viewOrders";
 import { AddOrder } from "./component/add-order";
 import { CartDetails } from "./component/cart-details";
+import { ProductsCatering } from "./component/products-catering";
 
 //create your first component
 const Layout = () => {
@@ -67,6 +68,8 @@ const Layout = () => {
                         <Route path="/orders" element={<ViewOrders />} />
                         <Route path="/add-order" element={<AddOrder />} />
                         <Route path="/cart-details" element={<CartDetails />} />
+                        <Route path="/catering-products" element={<ProductsCatering />} />
+                        
 
                         <Route element={<CompaniesList />} path="/companies" />
                         <Route element={<CompanyForm />} path="/signup-company" />

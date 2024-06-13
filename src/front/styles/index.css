@@ -2,21 +2,345 @@
     General Styles used on every website (Don't Repeat Yourself)
 */
 
+body {
+  background: -moz-radial-gradient(red, blue);
+  font-family: Courier New;
+}
+
 .sticky-summary {
-    background: rgb(212, 209, 209);
-    position: sticky;
-    top: 15%; 
-    height: 50vh;
-    overflow-y: auto; 
+  background: rgb(212, 209, 209);
+  position: sticky;
+  top: 15%; 
+  height: 50vh;
+  overflow-y: auto; 
 }
 
 .summary {
-    padding: 20px;
+  padding: 20px;
 }
 
 .keep-buying {
-    position: sticky;
-    top: 18%; 
-    height: 50vh;
-    position: absolute;
+  position: sticky;
+  top: 18%; 
+  height: 50vh;
+  position: absolute;
 }
+
+.body-categories {
+  display: -webkit-inline-box;
+}
+
+.body-home {
+  text-align: -webkit-center
+}
+
+.body-login {
+  margin-left: auto;
+}
+
+/* Products */
+
+.add-product-btn-container {
+  margin-bottom: 20px;
+}
+
+.product-card {
+  display: flex;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px;
+  width: 600px;
+  height: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  color: aliceblue;
+}
+
+.product-card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.705);
+}
+
+.product-card-inner {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.product-image {
+  border-radius: 10px;
+  margin: 10px;
+  align-self: center;
+  width: 200px;
+  height: 150px;
+}
+
+.product-details {
+  padding: 20px;
+  flex: 1;
+  background: rgba(18, 91, 175, 0.788)
+}
+
+.product-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-description, .product-quantity, .product-price, .product-company-id {
+  margin-bottom: 8px;
+}
+
+.product-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Estilos base para los contenedores */
+.buttons-editDelete {
+  gap: 10px;
+  display: inline-grid;
+  margin-top: -395px;
+  margin-right: -18px;
+}
+
+/* Estilos para los iconos */
+.edit-icon,
+.delete-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Estilo para el icono de editar */
+.edit-icon::before {
+  content: '✏️';
+  font-size: 20px;
+  color: white;
+}
+
+.edit-icon {
+  background: linear-gradient(45deg, #adaf1b, #eccd65);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.edit-icon:hover {
+  transform: scale(1.2) rotate(30deg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Estilo para el icono de eliminar */
+.delete-icon::before {
+  content: '🗑️';
+  font-size: 20px;
+  color: white;
+}
+
+.delete-icon {
+  background: linear-gradient(45deg, #b91111, #f2814c);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.delete-icon:hover {
+  transform: scale(1.2) rotate(-30deg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}  
+
+.btn-modern-1 {
+  background: linear-gradient(45deg, #0e0b22 0%, #215bc0 50%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(240, 237, 237, 0.2);
+}
+
+.btn-modern-1:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgb(255, 255, 255);
+}
+
+.btn-cart {
+  background: linear-gradient(45deg, #0b040c 0%, #2abbbb 50%);
+  border: none;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(233, 14, 14, 0.2);
+}
+
+.btn-cart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgb(255, 255, 255);
+}
+
+.bi-cart4 {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.bi-cart4:hover {
+  text-transform: uppercase;
+}
+
+.title-products {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333; /* Color de texto */
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.title-products::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 2px;
+  background-color: #008cba; /* Color de la línea */
+  transition: width 0.3s ease;
+}
+
+.title-products:hover {
+  color: #008cba; /* Color de texto al pasar el ratón */
+}
+
+.title-products:hover::before {
+  width: 100%;
+}
+
+.title-products::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 3px;
+  background-color: #008cba; /* Color de la sombra */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.title-products:hover::after {
+  opacity: 1;
+}
+
+/* Products by company */
+
+.card-custom {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  overflow: hidden;
+  background-color: #3e6fcaa1;
+  transition: transform 0.2s;
+}
+
+.card-custom:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.932);
+}
+
+.card-horizontal {
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  height: 300px;
+}
+
+.card-horizontal .img-fluid {
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-horizontal .card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-title {
+  color: #04090f;
+  font-weight: bold;
+}
+
+.card-text {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.card-text small {
+  color: #888;
+}
+
+.btn-outline-primary {
+  color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.icon-button {
+  cursor: pointer;
+  margin: 0 5px;
+  padding: 10px;
+}
+
+.edit-icon {
+  color: yellow;
+}
+
+.delete-icon {
+  color: #dc3545;
+}
+
+.buttons-d-e {
+  display: -webkit-inline-box;
+  align-self: self-end;
+}
+
+.btn-moder2 {
+  background: linear-gradient(45deg, #0b040c 0%, #2abbbb 50%);
+  border: none;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(233, 14, 14, 0.2);
+  float: inline-end;
+}
+
+.btn-moder2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgb(255, 255, 255);
+}
+  
+/* Add product */
+

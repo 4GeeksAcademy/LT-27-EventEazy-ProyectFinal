@@ -43,7 +43,7 @@ export const ProductForm = (props) => {
             <nav className="navbar navbar-light m-5">
                 <div className="ml-auto">
                     <Link to="/product-by-company">
-                        <span className="navbar-brand mb-0 h1">Back To My Products</span>
+                        <span className="navbar-brand mb-0 h1">See only products</span>
                     </Link>
                 </div>
             </nav>

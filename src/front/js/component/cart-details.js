@@ -11,9 +11,12 @@ export const CartDetails = () => {
         actions.calculateSubtotal();
     }, []);
 
-    const handleQuantityChange = (productId, quantity) => {
-        actions.updateProductQuantity(productId, quantity);
-        actions.calculateSubtotal();
+    const handleQuantityChange = (productId, delta) => {
+        const product = store.cart.find(product => product.id === productId);
+        if (product.quantity + delta > 0) {
+            actions.updateProductQuantity(productId, delta);
+            actions.calculateSubtotal();
+        }
     };
 
     return (

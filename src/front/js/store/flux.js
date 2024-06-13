@@ -1,5 +1,3 @@
-import { Navigate } from "react-router-dom";
-
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -22,19 +20,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			users: [],
 			orders: [],
 			companies: [],
-			company:{},
+			company: {},
 			apiUrl: `${process.env.BACKEND_URL}/api`,
 			products: [],
-			product:{},
-			productOrders:[],
-			singleProductOrder:{},
+			product: {},
+			productOrders: [],
+			singleProductOrder: {},
 			currentUser: {},
+			auth: false,
 			userType: "",
 			userCompanyId: "",
 			userId: "",
 			productByCompany: {},
-			productOrderByCompany:{}
-
+			productOrderByCompany: {}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -201,30 +199,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} )
 				
 				try { 
-					// const response = await fetch(`${store.apiUrl}/product` , {
-					// 	method: 'GET',
-					// 	mode: "no-cors",
-					// 	headers: {
-					// 		'Content-Type': 'application/json',
-					// 		'Access-Control-Allow-Origin': '*'
-					// 	}
-					// })
-					// const data = await response.json()
-					// console.log(data, 'data')
-					// const response = await fetch(`${store.apiUrl}/product`)
-					// console.log(`${store.apiUrl}/product`,'url')
-					// console.log(response,'RESPUESTA API product')
 					
-					// console.log(data,'data API product')
-					// if(response.ok){
-					// 	const data = await response.json()
-					// 	console.log(data)
-					// 	setStore({products: data})
-					// 	return true
-					// }
-					// // console.log(data)
-					// setStore({products: false})
-					// return false
 				} catch (error) { 
 					console.log(error)
 					setStore({products: false})
@@ -432,30 +407,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} )
 				
 				try { 
-					// const response = await fetch(`${store.apiUrl}/product` , {
-					// 	method: 'GET',
-					// 	mode: "no-cors",
-					// 	headers: {
-					// 		'Content-Type': 'application/json',
-					// 		'Access-Control-Allow-Origin': '*'
-					// 	}
-					// })
-					// const data = await response.json()
-					// console.log(data, 'data')
-					// const response = await fetch(`${store.apiUrl}/product`)
-					// console.log(`${store.apiUrl}/product`,'url')
-					// console.log(response,'RESPUESTA API product')
-					
-					// console.log(data,'data API product')
-					// if(response.ok){
-					// 	const data = await response.json()
-					// 	console.log(data)
-					// 	setStore({products: data})
-					// 	return true
-					// }
-					// // console.log(data)
-					// setStore({products: false})
-					// return false
 				} catch (error) { 
 					console.log(error)
 					setStore({productOrders: false})
@@ -688,6 +639,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const actions = getActions();
 				try {
+					console.log(`${store.apiUrl}/orders`)
+					console.log(JSON.stringify(
+						{
+							"address": order.address,
+							"begin_hour": order.begin_hour,
+							"end_hour": order.end_hour,
+							"user_id": order.user_id,
+							"total": Number(order.total) 
+						}
+					))
 					const response = await fetch(`${store.apiUrl}/orders`, {
 						// mode: "no-cors",
 						method: 'POST',
@@ -697,7 +658,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 								"begin_hour": order.begin_hour,
 								"end_hour": order.end_hour,
 								"user_id": order.user_id,
-								"total": order.total
+								"total": Number(order.total)
 							}
 						),
 						headers: {
@@ -777,9 +738,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-
-
-			
+			// From here onwards goes the code for login.
 
 			login: async (user) => {
 				console.log(user)
@@ -807,8 +766,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							currentUser.role = "user"
 							localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-
-
 						}if(data.company){
 							setStore({userCompanyId: data.company.id})
 							console.log(store.userCompanyId,store.userType,"desde flux")
@@ -831,10 +788,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) { 
 					console.log(error)
 					return {ok: false, error: error.message}
-					
 				}
-			
 			},
+
+			// From here onwards goes the code for signup.
+
 			signup: async (user) => {
 				const store = getStore();
 				const actions = getActions();
@@ -861,6 +819,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+			// From here onwards goes the code for is auth.
+
 			isAuth: async() =>{
 				const store = getStore()
 				try {
@@ -870,8 +831,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'aplication/json',
 							'Autorization': `Bearer ${store.currentUser.access_token}`
 						}
-						
-
 					})
 					console.log(response)
 					if(response.ok){
@@ -881,23 +840,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					
 				} catch (error) {
-					return false
-					
+					return false	
 				}
-
 			},
+
+			// From here onwards goes the code for logout.
 
 			logout: () => {
-				const store = getStore()
-				const actions = getActions()
-				console.log("logout desde flux")
-				localStorage.removeItem("access_token")
-				localStorage.removeItem("currentUser")
-				setStore({auth: false})
-
-
-
-			},
+                setStore({ auth: false, userType: "", currentUser: {} });
+                localStorage.removeItem("currentUser");
+                localStorage.removeItem("access_token");
+            },
 
 			// From here onwards goes the code for cart.
 
@@ -915,7 +868,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             getCart: () => {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cart = JSON.parse(localStorage.getItem('cart')) || "";
                 setStore({ cart });
             },
 
@@ -924,21 +877,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                 localStorage.removeItem('cart');
             },
 
-            removeProductFromCart: (productId) => {
-                const store = getStore();
-                const cart = store.cart.filter(product => product.id !== productId);
-                setStore({ cart });
-                localStorage.setItem('cart', JSON.stringify(cart));
-            },
-
-            updateProductQuantity: (productId, quantity) => {
-                const store = getStore();
-                const cart = store.cart.map(product => 
-                    product.id === productId ? { ...product, quantity: Math.max(product.quantity + quantity, 1) } : product
-                );
-                setStore({ cart });
-                localStorage.setItem('cart', JSON.stringify(cart));
-            },
+            updateProductQuantity: (productId, delta) => {
+				const store = getStore();
+				const cart = store.cart.map(product =>
+					product.id === productId ? { ...product, quantity: Math.max(product.quantity + delta, 1) } : product
+				);
+				setStore({ cart });
+				localStorage.setItem('cart', JSON.stringify(cart));
+			},
+			
+			removeProductFromCart: (productId) => {
+				if (window.confirm("Are you sure you want to remove this product from the cart?")) {
+					const store = getStore();
+					const cart = store.cart.filter(product => product.id !== productId);
+					setStore({ cart });
+					localStorage.setItem('cart', JSON.stringify(cart));
+				}
+			},
 
             calculateSubtotal: () => {
 				const store = getStore();

@@ -4,8 +4,6 @@ import { Context } from "../store/appContext";
 import { DetailsUser } from "../component/details-users";
 import Map  from "../component/map"
 
-
-
 export const ProfileUser = () => {
     const { store, actions } = useContext(Context);
     const [user, setUser] = useState({ });
@@ -36,11 +34,17 @@ export const ProfileUser = () => {
 
     return(
         <>
-        <h1>Profile User</h1>
-        <h1>Profile User:{user.id}</h1>
+        <div className="title-profile my-5">
+            <h1>My profile</h1>
+        </div>
+        <div className="name-user">
+            <h1> {user.name} </h1>
+        </div>
         {store.userType}
         {/* {store.products.company_id == store.user_id} */}
-        {user.email}
+        <div className="email position-relative">
+            {user.email}
+        </div>
         
         {/* <DetailsUser store.users.id={store.user_id} role={store.user-type}/> */}
         {/* <div className="container w-50 my-5  shadow p-3 mb-5 bg-body-tertiary rounded">
