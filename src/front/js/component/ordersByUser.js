@@ -25,13 +25,13 @@ const OrdersByUser = () => {
             <div className="row">
                 {store.ordersByUser.map(order => (
                     <div key={order.id} className="card-order col-md-4 w-50">
-                        <div className="card my-3">
+                        <div className="card5 my-3" style={{background: 'rgb(211, 184, 233)'}}>
                             <div className="row g-0">
                                 <div className="col-md-4 m-auto">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/2649/2649223.png" width="80" height="80" />
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2649/2649223.png" width="300px" />
                                 </div>
-                                <div className="col-md-8">
-                                    <div className="card-body">
+                                <div className="col-md-8 body-info">
+                                    <div className="card-body p-2">
                                         <span>
                                             <b>USER</b>
                                             <p className="card-userID">{order.user_id}</p>

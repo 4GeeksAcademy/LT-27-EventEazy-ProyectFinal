@@ -18,7 +18,7 @@ export const CartDetails = () => {
 
     return (
         <>
-            <h1 className="title-cart my-5 text-center">
+            <h1 className="title-cart my-5 mt-5 text-center">
                 YOUR CART
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-cart-check mb-2 ms-3" viewBox="0 0 16 16">
                     <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
@@ -29,22 +29,24 @@ export const CartDetails = () => {
                 <div className="row">
                     <div className="col-sm-8">
                         {store.cart.map((product, index) => (
-                            <div key={index} className="card mb-3 w-75 ms-5">
-                                <div className="row g-0">
+                            <div key={index} className="card mb-3 w-75 ms-5 p-2">
+                                <div className="row g-0" style={{background: 'rgba(71, 7, 7, 0.1)'}}>
                                     <div className="col-md-4">
-                                        <img src={rigoImage} className="rounded-circle my-2" width="250px" />
+                                        <img src="https://cdn-icons-png.freepik.com/512/6806/6806353.png" className="rounded my-2" width="250px" />
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
-                                            <h5 className="card-title">{product.name}</h5>
-                                            <p className="card-text">{product.description}</p>
-                                            <p className="card-text"><small className="text-body-secondary">Quantity: {product.quantity}</small></p>
-                                            <p className="card-text">Price: {product.price}</p>
-                                            <button onClick={() => actions.removeProductFromCart(product.id)} className="btn btn-danger">Eliminate</button>
-                                            <div className="input-group mt-2">
-                                                <button onClick={() => handleQuantityChange(product.id, -1)} className="btn btn-outline-secondary">-</button>
-                                                <span className="mx-2">{product.quantity}</span>
-                                                <button onClick={() => handleQuantityChange(product.id, 1)} className="btn btn-outline-secondary">+</button>
+                                            <div className="cart-b ms-5">
+                                                <h5 className="card-title">{product.name}</h5>
+                                                <p className="card-text">{product.description}</p>
+                                                <p className="card-text"><small className="text-body-secondary">Quantity: {product.quantity}</small></p>
+                                                <p className="card-text">Price: {product.price}</p>
+                                                <button onClick={() => actions.removeProductFromCart(product.id)} className="btn btn-danger">Eliminate</button>
+                                                <div className="input-group mt-2">
+                                                    <button onClick={() => handleQuantityChange(product.id, -1)} className="btn btn-outline-secondary">-</button>
+                                                    <span className="mx-2">{product.quantity}</span>
+                                                    <button onClick={() => handleQuantityChange(product.id, 1)} className="btn btn-outline-secondary">+</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +57,7 @@ export const CartDetails = () => {
 
                     <div className="col-md-4 sticky-summary">
                         <div className="summary">
-                            <div className="subtotal text-end">
+                            <div className="subtotal text-end" style={{color: 'black'}}>
                                 <h2>${store.subtotal.toFixed(2)}</h2>   
                                 <h1>Subtotal</h1>
                             </div>
@@ -72,7 +74,7 @@ export const CartDetails = () => {
                             </Link>
                         </div>
                     </div>
-                        <div className="keep-buying text-start ms-5">
+                        <div className="keep-buying text-start mt-5 ms-5">
                             <Link to="/products">
                                 <button type="button" className="btn btn-success">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-bar-left" viewBox="0 0 16 16">

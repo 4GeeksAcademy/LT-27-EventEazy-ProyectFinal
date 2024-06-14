@@ -721,7 +721,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 								"begin_hour": order.begin_hour,
 								"end_hour": order.end_hour,
 								"user_id": order.user_id,
-								"total": order.total
+								"total": Number(order.total)
 							}
 						),
 						headers: {
@@ -801,10 +801,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-
-
-			
-
 			login: async (user) => {
 				console.log(user)
 				const store = getStore()
@@ -845,8 +841,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 						setStore({auth: true})
 						console.log("authTrue",store.auth)
-						localStorage.setItem('access_token', data.access_token);
-						setStore({currentUser: data.user})						
+						localStorage.setItem('access_token', data.access_token);						
 						console.log("login flux",store.currentUser)
 						return {ok: true, role: data.role}
 
