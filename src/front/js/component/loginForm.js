@@ -39,20 +39,21 @@ export const LoginForm = () => {
 
     return (
         <>
-            <nav className="login-navbar navbar  m-5 w-25" style={{background: "transparent"}}>
-                <div className="ml-auto ">
-                    <Link to="/signup-user" className="btn  " >
+            <nav className="login-navbar navbar m-5 w-25" style={{background: "transparent"}}>
+                <div className="ml-auto">
+                    <Link to="/signup-user" className="btn signup-btn">
                         <span className="login-navbar-brand navbar-brand mb-0 h1 text-white">Signup User</span>
                     </Link>
                 </div>
-                <div className="ml-auto ">
-                    <Link to="/signup-company" className="btn " >
+                <div className="ml-auto mt-4">
+                    <Link to="/signup-company" className="btn signup-btn">
                         <span className="login-navbar-brand navbar-brand mb-0 h1 text-white">Signup Company</span>
                     </Link>
                 </div>
             </nav>
+
             <form className="login-container container" onSubmit={handleSubmit}>
-                <h1>Login</h1>
+                <h1 style={{color: 'black', fontFamily: 'Copperplate Gothic'}}>Login</h1>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div className="login-form-floating form-floating mb-3">
                     <input

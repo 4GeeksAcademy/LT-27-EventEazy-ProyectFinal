@@ -16,10 +16,7 @@ export const Home = () => {
 	return (
 		<>
 		<div className="text-center mt-5">
-			
-			
-			{store.auth == true?   <Products /> : <LoginForm />}
-			
+			{store.auth == true?   <Products /> : <LoginForm />}	
 		</div>
 		</>
 	);
